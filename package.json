@@ -1,0 +1,29 @@
+{
+  "name": "hacko-4-code4bbs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kartikeya-123/Hacko-4-code4bbs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kartikeya-123/Hacko-4-code4bbs/issues"
+  },
+  "homepage": "https://github.com/kartikeya-123/Hacko-4-code4bbs#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express-mongo-sanitize": "^2.0.2",
+    "helmet": "^4.4.1",
+    "mongoose": "^5.12.2",
+    "nodemon": "^2.0.7",
+    "xss-clean": "^0.1.1"
+  }
+}
