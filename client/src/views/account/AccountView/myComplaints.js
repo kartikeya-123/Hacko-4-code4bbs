@@ -5,6 +5,7 @@ import axios from 'axios';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
+  Button,
   Card,
   CardHeader,
   Divider,
@@ -29,6 +30,25 @@ class complaintRegister extends Component {
     });
   };
 
+  deleteComplaint = (e, id) => {
+    e.preventDefault();
+    axios
+      .delete(`/api/v1/complaint/${id}`)
+      .then((response) => {
+        console.log(response);
+        if (response.status === 204) {
+          window.alert(`Complaint Delete successfully`);
+          const A = [...this.state.complaints];
+          const index = A.indexOf((x) => x._id === id);
+          A.splice(index, 1);
+          this.setState({ complaints: A });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   componentDidMount = () => {
     this.getComplaints();
   };
@@ -51,6 +71,7 @@ class complaintRegister extends Component {
                   <TableCell>Category</TableCell>
                   <TableCell>Subject</TableCell>
                   <TableCell>Description</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -62,6 +83,16 @@ class complaintRegister extends Component {
                     <TableCell>{complaint.category.toUpperCase()}</TableCell>
                     <TableCell>{complaint.subject}</TableCell>
                     <TableCell>{complaint.description}</TableCell>
+                    <TableCell>
+                      {' '}
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={(e) => this.deleteComplaint(e, complaint._id)}
+                      >
+                        Delete Complaint
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

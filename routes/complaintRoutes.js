@@ -31,6 +31,10 @@ router.patch(
 //add Remark to Complaint
 router.patch("/remark/:id", complaintController.addRemarkToComplaint);
 
-router.delete("/:id", complaintController.deleteComplaint);
+router.delete(
+  "/:id",
+  authLogic.loggedInUser,
+  complaintController.deleteComplaint
+);
 
 module.exports = router;
