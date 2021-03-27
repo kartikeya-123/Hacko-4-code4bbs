@@ -24,6 +24,12 @@ class ComplaintView extends Component {
   };
 
   render() {
+    let isAdmin = false;
+    if (this.props.user) {
+      isAdmin = JSON.parse(this.props.user).role === "admin";
+    }
+    // console.log(typeof this.props.user);
+
     return (
       <>
         <Helmet>
@@ -39,7 +45,10 @@ class ComplaintView extends Component {
           <Container maxWidth="lg">
             <Grid container spacing={3}>
               <Grid item lg={12} md={12} xs={12}>
-                <ComplaintRegister complaints={this.state.complaints} />
+                <ComplaintRegister
+                  complaints={this.state.complaints}
+                  admin={isAdmin.toString()}
+                />
               </Grid>
               <Grid item lg={6} md={6} xs={12}>
                 <AddComplaint />

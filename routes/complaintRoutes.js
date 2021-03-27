@@ -15,7 +15,11 @@ router.get("/:id", complaintController.getAComplaint);
 router.post("/", authLogic.loggedInUser, complaintController.createComplaint);
 
 //resolve a complaint
-router.patch("/resolve/:id", complaintController.closeComplaint);
+router.patch(
+  "/resolve/:id",
+  authLogic.loggedInUser,
+  complaintController.closeComplaint
+);
 
 //add Remark to Complaint
 router.patch("/remark/:id", complaintController.addRemarkToComplaint);

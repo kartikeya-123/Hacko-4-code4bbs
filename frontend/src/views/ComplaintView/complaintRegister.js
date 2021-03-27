@@ -1,4 +1,5 @@
 import moment from "moment";
+import axios from "axios";
 import { v4 as uuid } from "uuid";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {
@@ -17,6 +18,21 @@ import {
   Tooltip,
 } from "@material-ui/core";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
+
+const resolveComplaint = (e, id) => {
+  e.preventDefault();
+  axios
+    .patch(`/api/v1/complaint/resolve/${id}`, {})
+    .then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        window.alert(response.data.message);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 const Complaints = (props) => (
   <Card {...props}>
@@ -40,6 +56,7 @@ const Complaints = (props) => (
               <TableCell>Student Name</TableCell>
               <TableCell>Room Number</TableCell>
               <TableCell>Phone Number</TableCell>
+              {props.admin === "true" ? <TableCell>Resolve</TableCell> : null}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -54,6 +71,19 @@ const Complaints = (props) => (
                 <TableCell>{complaint.student.name}</TableCell>
                 <TableCell>{complaint.student.room}</TableCell>
                 <TableCell>{complaint.phone}</TableCell>
+                {props.admin === "true" ? (
+                  <TableCell>
+                    <Button
+                      color="success"
+                      size="small"
+                      onClick={(e) => {
+                        resolveComplaint(e, complaint._id);
+                      }}
+                    >
+                      Mark as Resolved
+                    </Button>
+                  </TableCell>
+                ) : null}
               </TableRow>
             ))}
           </TableBody>

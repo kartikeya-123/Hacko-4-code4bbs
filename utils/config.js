@@ -1,8 +1,10 @@
-require('dotenv').config();
+require("dotenv").config();
 
 let PORT = process.env.PORT;
 let EMAIL_USERNAME = process.env.EMAIL_USERNAME;
 let EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
+let EMAIL_PORT = process.env.EMAIL_PORT;
+let EMAIL_HOST = process.env.EMAIL_HOST;
 let NODE_ENV = process.env.NODE_ENV;
 let JWT_SECRET = process.env.JWT_SECRET;
 let JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
@@ -19,6 +21,8 @@ module.exports = {
   JWT_EXPIRES_IN,
   EMAIL_USERNAME,
   EMAIL_PASSWORD,
+  EMAIL_HOST,
+  EMAIL_PORT,
   JWT_COOKIE_EXPIRES_IN,
   CLIENT_ID,
   SIGNUP_TOGGLE,

@@ -86,7 +86,7 @@ exports.closeComplaint = catchAsync(async (req, res, next) => {
     attachments: [],
   });
 
-  res.status(201).json({
+  res.status(200).json({
     status: "success",
     message: "Complaint Closed Successfully and Mail Sent to the Student",
     data: closedComplaint,
