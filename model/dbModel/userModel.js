@@ -41,17 +41,35 @@ const userSchema = new mongoose.Schema(
       type: Number,
       max: [new Date().getFullYear(), "Invalid year of admission"],
     },
+    graduationYear: {
+      type: Number,
+    },
     program: {
       type: String,
       default: "Not Specified",
     },
+    branch: {
+      type: String,
+      default: "Not Specified",
+    },
     phoneNumber: {
-      type : String
+      type: String,
     },
     tags: [
       {
         type: mongoose.Schema.ObjectId,
         ref: "Tag",
+      },
+    ],
+    links: [
+      {
+        url: {
+          type: String,
+        },
+        name: {
+          type: String,
+          enum: ["LinkedIn", "GitHub", "Facebook", "Instagram", "Twitter"],
+        },
       },
     ],
   },

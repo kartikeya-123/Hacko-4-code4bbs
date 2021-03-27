@@ -15,40 +15,7 @@ const useStyles = (theme) => ({
 class CustomerListView extends Component {
   state = {
     users: [],
-    tags: [
-      {
-        group: 'Tech',
-        name: 'React',
-      },
-      {
-        group: 'Tech',
-        name: 'Node',
-      },
-      {
-        group: 'Tech',
-        name: 'Flutter',
-      },
-      {
-        group: 'Tech',
-        name: 'Angular',
-      },
-      {
-        group: 'Positon of Responsibility',
-        name: 'Mess Secretary',
-      },
-      {
-        group: 'Positon of Responsibility',
-        name: 'Sports Secretary',
-      },
-      {
-        group: 'Positon of Responsibility',
-        name: 'Cultural Secretary',
-      },
-      {
-        group: 'Positon of Responsibility',
-        name: 'Tech Secretary',
-      },
-    ],
+    tags: [],
     isLoadingUsers: false,
     isLoadingTags: false,
   };
@@ -68,9 +35,22 @@ class CustomerListView extends Component {
         this.setState({ isLoadingUsers: false });
       });
   };
-
+  getAllTags = () => {
+    this.setState({ isLoadingTags: true });
+    axios
+      .get('/api/v1/user/tag', {
+        withCredentials: true,
+      })
+      .then((response) => {
+        this.setState({ tags: response.data.data.docs, isLoadingTags: false });
+      })
+      .catch((err) => {
+        this.setState({ isLoadingTags: false });
+      });
+  };
   componentDidMount = () => {
     this.getAllUsers();
+    this.getAllTags();
   };
   render() {
     const { classes } = this.props;

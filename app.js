@@ -10,8 +10,9 @@ const clientEndpoints = ["discover", "profile", "update"];
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controller/errorController");
 
-const userRouter = require('./routes/userRoutes');
+const userRouter = require("./routes/userRoutes");
 const authRouter = require("./routes/authRoutes");
+const searchRouter = require("./routes/searchRoutes");
 const sportRouter = require("./routes/sportRoutes");
 const complaintRouter = require("./routes/complaintRoutes");
 // const adminRouter = require('./routes/adminRoutes');
@@ -53,7 +54,10 @@ app.use("/api/v1/sport", sportRouter);
 app.use("/api/v1/complaint", complaintRouter);
 
 //user routes
-app.use("/api/v1/user",userRouter);
+app.use("/api/v1/user", userRouter);
+
+//Search Endpoints
+app.use("/api/v1/search", searchRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
