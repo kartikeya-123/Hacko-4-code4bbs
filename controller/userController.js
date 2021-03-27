@@ -35,7 +35,9 @@ exports.getDetailsWithEmail = catchAsync(async(req,res,next) => {
     status : 'success',
     user
   })
+  next();
 })
+
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const docs = await User.find().sort({ name: 1 }).lean();
 
@@ -66,7 +68,7 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
-
+  console.log(updatedUser)
   res.status(200).json({
     status: "success",
     updatedUserData: {

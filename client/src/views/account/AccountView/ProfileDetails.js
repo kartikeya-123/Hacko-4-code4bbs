@@ -9,6 +9,7 @@ import {
   TextField,
 } from '@material-ui/core';
 import React, {Component} from 'react';
+import axios from 'axios';
 
 class ProfileDetails extends Component {
   constructor(props) {
@@ -21,10 +22,37 @@ class ProfileDetails extends Component {
       rollNumber : this.props.user.rollNumber,
       room : this.props.user.room
     };
+    this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  
+  handleChange(event) {
+    event.preventDefault();
+    const field = event.target.name;
+    this.setState({ [field] : event.target.value});
+    // console.log(event.target.value)
   }
   
+  saveDetails = () => {
+    const changes = {
+      phoneNumber : this.state.phoneNumber,
+      hostelName : this.state.hostel,
+      roomNumber : this.state.room,
+      rollNumber : this.state.rollNumber
+    }
+    axios.patch('/api/v1/user/updateProfile',changes).then(response => {
+      this.setState({
+        email : response.data.updatedUserData.updatedUser.email,
+        name : response.data.updatedUserData.updatedUser.name,
+        phoneNumber : response.data.updatedUserData.updatedUser.phoneNumber,
+        roomNumber : response.data.updatedUserData.updatedUser.room,
+        rollNumber : response.data.updatedUserData.updatedUser.rollNumber,
+        hostelName : response.data.updatedUserData.updatedUser.hostel
+      })
+    })
+  }
   render() {
-    console.log(this.props.userDetails);
     const hostels = [
       {
         value: 'hostel-1',
@@ -39,7 +67,7 @@ class ProfileDetails extends Component {
         label: 'Hostel 3',
       },
     ];
-    console.log(this.props.user)
+    
     return (
       <form autoComplete="off" noValidate>
       <Card>
@@ -47,7 +75,7 @@ class ProfileDetails extends Component {
         <Divider />
         <CardContent>
           <Grid container spacing={3}>
-            <Grid item md={6} xs={12}>
+            {/* <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="First name"
@@ -57,9 +85,9 @@ class ProfileDetails extends Component {
                 value={this.state.name}
                 variant="outlined"
               />
-            </Grid>
+            </Grid> */}
 
-            <Grid item md={6} xs={12}>
+            {/* <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Email Address"
@@ -69,14 +97,14 @@ class ProfileDetails extends Component {
                 value={this.state.email}
                 variant="outlined"
               />
-            </Grid>
+            </Grid> */}
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Phone Number"
-                name="phone"
+                name="phoneNumber"
                 onChange={this.handleChange}
-                type="number"
+                type="text"
                 value={this.state.phoneNumber}
                 variant="outlined"
               />
@@ -138,7 +166,7 @@ class ProfileDetails extends Component {
             p: 2,
           }}
         >
-          <Button color="primary" variant="contained">
+          <Button color="primary" variant="contained" onClick = {this.saveDetails}>
             Save details
           </Button>
         </Box>
