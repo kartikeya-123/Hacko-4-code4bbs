@@ -3,6 +3,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import MainLayout from "./layouts/MainLayout";
 import AccountView from "./views/AccountView";
 import CustomerListView from "./views/CustomerListView";
+import NewComplaintView from "./views/NewComplaintView";
 import DashboardView from "./views/reports/DashboardView";
 import LoginView from "./views/auth/LoginView";
 import NotFoundView from "./views/errors/NotFoundView";
@@ -25,6 +26,7 @@ const setUserAsProps = (user, cookies) => {
         { path: "sports/:id", element: <EquipmentView user={user} /> },
         // { path: "settings", element: <SettingsView /> },
         { path: "complaints", element: <ComplaintView user={user} /> },
+        { path: "complaints/add", element: <NewComplaintView user={user} /> },
         { path: "*", element: <Navigate to="/404" /> },
       ],
     },
