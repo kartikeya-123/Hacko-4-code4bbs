@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Box,
   Button,
@@ -9,56 +8,40 @@ import {
   Grid,
   TextField,
 } from '@material-ui/core';
+import React, {Component} from 'react';
 
-// const states = [
-//   {
-//     value: 'alabama',
-//     label: 'Alabama',
-//   },
-//   {
-//     value: 'new-york',
-//     label: 'New York',
-//   },
-//   {
-//     value: 'san-francisco',
-//     label: 'San Francisco',
-//   },
-// ];
-
-const hostels = [
-  {
-    value: 'hostel-1',
-    label: 'Hostel 1',
-  },
-  {
-    value: 'hostel-2',
-    label: 'Hostel 2',
-  },
-  {
-    value: 'hostel-3',
-    label: 'Hostel 3',
-  },
-];
-
-const ProfileDetails = ({ user }) => {
-  const [values, setValues] = useState({
-    firstName: user.name,
-    email: user.email,
-    // phoneNumber: user.phoneNumber || 'Not Specified',
-    // hostel: user.hostel || 'Not Specified',
-    // roomNumber: user.room || 'Not Specified',
-    // rollNumber: user.rollNumber || 'Not Specified'
-  });
-  console.log(user);
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  return (
-    <form autoComplete="off" noValidate>
+class ProfileDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name : this.props.user.name,
+      email: this.props.user.email,
+      phoneNumber : this.props.user.phoneNumber,
+      hostel : this.props.user.hostel,
+      rollNumber : this.props.user.rollNumber,
+      room : this.props.user.room
+    };
+  }
+  
+  render() {
+    console.log(this.props.userDetails);
+    const hostels = [
+      {
+        value: 'hostel-1',
+        label: 'Hostel 1',
+      },
+      {
+        value: 'hostel-2',
+        label: 'Hostel 2',
+      },
+      {
+        value: 'hostel-3',
+        label: 'Hostel 3',
+      },
+    ];
+    console.log(this.props.user)
+    return (
+      <form autoComplete="off" noValidate>
       <Card>
         <CardHeader subheader="The information can be edited" title="Profile" />
         <Divider />
@@ -67,11 +50,34 @@ const ProfileDetails = ({ user }) => {
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
+                label="First name"
+                name="firstName"
+                onChange={this.handleChange}
+                required
+                value={this.state.name}
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                label="Email Address"
+                name="email"
+                onChange={this.handleChange}
+                required
+                value={this.state.email}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
                 label="Phone Number"
                 name="phone"
-                onChange={handleChange}
+                onChange={this.handleChange}
                 type="number"
-                value={values.phoneNumber}
+                value={this.state.phoneNumber}
                 variant="outlined"
               />
             </Grid>
@@ -80,11 +86,11 @@ const ProfileDetails = ({ user }) => {
                 fullWidth
                 label="Hostel Name"
                 name="hostel"
-                onChange={handleChange}
+                onChange={this.handleChange}
                 required
                 select
                 SelectProps={{ native: true }}
-                value={values.hostel}
+                value={this.state.hostel}
                 variant="outlined"
               >
                 {hostels.map((option) => (
@@ -99,9 +105,9 @@ const ProfileDetails = ({ user }) => {
                 fullWidth
                 label="Room Number"
                 name="room"
-                onChange={handleChange}
+                onChange={this.handleChange}
                 required
-                value={values.room}
+                value={this.state.room}
                 variant="outlined"
               >
                 {/* {states.map((option) => (
@@ -116,9 +122,9 @@ const ProfileDetails = ({ user }) => {
                 fullWidth
                 label="Roll Number"
                 name="rollNumber"
-                onChange={handleChange}
+                onChange={this.handleChange}
                 required
-                value={values.rollNumber}
+                value={this.state.rollNumber}
                 variant="outlined"
               ></TextField>
             </Grid>
@@ -138,7 +144,9 @@ const ProfileDetails = ({ user }) => {
         </Box>
       </Card>
     </form>
-  );
-};
+    )
+  }
+}
+
 
 export default ProfileDetails;
