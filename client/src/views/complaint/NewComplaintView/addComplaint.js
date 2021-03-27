@@ -1,5 +1,5 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState } from 'react';
+import axios from 'axios';
 import {
   Box,
   Button,
@@ -9,37 +9,40 @@ import {
   Divider,
   Grid,
   TextField,
-} from "@material-ui/core";
+} from '@material-ui/core';
+import { useNavigate } from 'react-router-dom';
 
 const categories = [
   {
-    value: "civil",
-    label: "Civil",
+    value: 'civil',
+    label: 'Civil',
   },
   {
-    value: "mess",
-    label: "Hostel Mess",
+    value: 'mess',
+    label: 'Hostel Mess',
   },
   {
-    value: "electrical",
-    label: "Electrical",
+    value: 'electrical',
+    label: 'Electrical',
   },
   {
-    value: "internet",
-    label: "Internet",
+    value: 'internet',
+    label: 'Internet',
   },
 ];
 
-const hostels = [{ value: "hostel1", label: "Hostel 1" }];
+const hostels = [{ value: 'hostel1', label: 'Hostel 1' }];
 
 const ProfileDetails = (props) => {
   const [values, setValues] = useState({
-    subject: "",
-    description: "",
-    phone: "",
-    category: "",
-    hostel: "hostel1",
+    subject: '',
+    description: '',
+    phone: '',
+    category: '',
+    hostel: 'hostel1',
   });
+
+  let navigate = useNavigate();
 
   const handleChange = (event) => {
     setValues({
@@ -50,11 +53,12 @@ const ProfileDetails = (props) => {
 
   const postComplaint = (event) => {
     event.preventDefault();
-    axios.post("/api/v1/complaint", { ...values }).then((response) => {
+    axios.post('/api/v1/complaint', { ...values }).then((response) => {
       if (response.status === 201) {
-        window.alert("Complaint Added Successfully");
+        window.alert('Complaint Added Successfully');
+        navigate('/app/complaints');
       } else {
-        window.alert("Failed to Add Complaint! Try Again after some time");
+        window.alert('Failed to Add Complaint! Try Again after some time');
       }
     });
   };
@@ -152,8 +156,8 @@ const ProfileDetails = (props) => {
         <Divider />
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "flex-end",
+            display: 'flex',
+            justifyContent: 'flex-end',
             p: 2,
           }}
         >

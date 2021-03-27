@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Chip } from '@material-ui/core';
 
-const CustomChip = props => {
+const CustomChip = (props) => {
   const [variant, setVariant] = useState('outlined');
   let toggle = () => {
     if (variant === 'outlined') {
@@ -21,6 +21,7 @@ const CustomChip = props => {
       clickable
       onClick={toggle}
       variant={variant}
+      style={{ margin: '2px' }}
       color="primary"
     />
   );

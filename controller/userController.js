@@ -17,7 +17,11 @@ exports.aboutMe = catchAsync(async (req, res, next) => {
 });
 
 exports.getProfile = catchAsync(async (req, res, next) => {
-  let user = await User.findOne({ _id: req.query.id }).lean();
+  let user = await User.findOne({ _id: req.query.id }).populate({
+    path: "tags",
+    model: "Tag",
+    select: "name group",
+  });
 
   if (!user) {
     return next(new AppError("This user is not present", 400));

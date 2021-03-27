@@ -311,6 +311,7 @@ const Profile = ({ profile, className, ...rest }) => {
                                         className={classes.chip}
                                         variant="outlined"
                                         color="primary"
+                                        style={{ margin: '2px' }}
                                         onClick={() => {
                                           return null;
                                         }}
