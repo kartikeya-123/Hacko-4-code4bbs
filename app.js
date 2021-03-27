@@ -6,12 +6,16 @@ const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const path = require("path");
 const middleware = require("./utils/middleware");
-
-const clientEndpoints = ["login"];
+const clientEndpoints = ["discover", "profile", "update"];
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controller/errorController");
 
+// const userRouter = require('./routes/userRoutes');
 const authRouter = require("./routes/authRoutes");
+const sportRouter = require("./routes/sportRoutes");
+const complaintRouter = require("./routes/complaintRoutes");
+// const adminRouter = require('./routes/adminRoutes');
+// require('./cronJobs/backup');
 
 const app = express();
 
@@ -41,6 +45,12 @@ app.get("/:clientEndpoint", (req, res, next) => {
 
 //Authentication Endpoint
 app.use("/api/v1/auth", authRouter);
+
+//Sport Equipment routes
+app.use("/api/v1/sport", sportRouter);
+
+//Complaint Routes
+app.use("/api/v1/complaint", complaintRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

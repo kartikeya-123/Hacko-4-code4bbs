@@ -1,7 +1,7 @@
-import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet";
-import * as Yup from "yup";
-import { Formik } from "formik";
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import * as Yup from 'yup';
+import { Formik } from 'formik';
 import {
   Box,
   Button,
@@ -10,9 +10,9 @@ import {
   Link,
   TextField,
   Typography,
-} from "@material-ui/core";
-import FacebookIcon from "../../icons/Facebook";
-import GoogleIcon from "../../icons/Google";
+} from '@material-ui/core';
+import FacebookIcon from '../../icons/Facebook';
+import GoogleIcon from '../../icons/Google';
 
 const LoginView = () => {
   const navigate = useNavigate();
@@ -24,28 +24,28 @@ const LoginView = () => {
       </Helmet>
       <Box
         sx={{
-          backgroundColor: "background.default",
-          display: "flex",
-          flexDirection: "column",
-          height: "100%",
-          justifyContent: "center",
+          backgroundColor: 'background.default',
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+          justifyContent: 'center',
         }}
       >
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: "test@iitbbs.ac.in",
-              password: "Password123",
+              email: 'test@iitbbs.ac.in',
+              password: 'Password123',
             }}
             validationSchema={Yup.object().shape({
               email: Yup.string()
-                .email("Must be a valid email")
+                .email('Must be a valid email')
                 .max(255)
-                .required("Email is required"),
-              password: Yup.string().max(255).required("Password is required"),
+                .required('Email is required'),
+              password: Yup.string().max(255).required('Password is required'),
             })}
             onSubmit={() => {
-              navigate("/", { replace: true });
+              navigate('/app/dashboard', { replace: true });
             }}
           >
             {({
@@ -148,8 +148,8 @@ const LoginView = () => {
                   </Button>
                 </Box>
                 <Typography color="textSecondary" variant="body1">
-                  Don&apos;t have an account?{" "}
-                  <Link component={RouterLink} to="/" variant="h6">
+                  Don&apos;t have an account?{' '}
+                  <Link component={RouterLink} to="/register" variant="h6">
                     Sign up
                   </Link>
                 </Typography>

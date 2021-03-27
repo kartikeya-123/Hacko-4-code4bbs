@@ -20,6 +20,7 @@ import {
   User as UserIcon,
   UserPlus as UserPlusIcon,
   Users as UsersIcon,
+  Tool as ToolBarIcon,
 } from 'react-feather';
 import NavItem from './NavItem';
 import { GoogleLogout } from 'react-google-login';
@@ -44,7 +45,7 @@ const items = [
 
   {
     href: '/app/complaints',
-    icon: ShoppingBagIcon,
+    icon: ToolBarIcon,
     title: 'Complaints',
   },
 
