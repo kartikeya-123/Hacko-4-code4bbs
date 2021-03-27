@@ -103,7 +103,7 @@ exports.createEquipment = catchAsync(async (req, res, next) => {
     $push: { equipments: newEquipment._id },
   });
 
-  res.status(200).json({
+  res.status(201).json({
     status: "sucesss",
     equipment: newEquipment,
   });
