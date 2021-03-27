@@ -15,6 +15,7 @@ const authRouter = require("./routes/authRoutes");
 const searchRouter = require("./routes/searchRoutes");
 const sportRouter = require("./routes/sportRoutes");
 const complaintRouter = require("./routes/complaintRoutes");
+const messRouter = require("./routes/menuRoutes");
 // const adminRouter = require('./routes/adminRoutes');
 // require('./cronJobs/backup');
 
@@ -56,6 +57,8 @@ app.use("/api/v1/complaint", complaintRouter);
 //user routes
 app.use("/api/v1/user", userRouter);
 
+//Menu Routes
+app.use("/api/v1/mess", messRouter);
 //Search Endpoints
 app.use("/api/v1/search", searchRouter);
 

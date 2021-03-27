@@ -1,75 +1,42 @@
 import React, { Component } from 'react';
-import { Card, Typography, Grid, Divider } from '@material-ui/core';
-
-const menu = [
-  {
-    day: 'Sunday',
-    index: 0,
-    breakfast: ['Dosa', 'Sambar', 'Coconut chutney', 'Sweet corn'],
-    lunch: ['Jeera rice', 'Dal tadka', 'Dry Bhindi', 'Masala papad', 'Sambar'],
-    snacks: ['Samosa'],
-    dinner: ['Veg kolhapuri', 'Plain Dal', 'Curd', 'Roti', 'Sambar'],
-  },
-  {
-    day: 'Monday',
-    index: 1,
-    breakfast: ['Dosa', 'Sambar', 'Coconut chutney', 'Sweet corn'],
-    lunch: ['Jeera rice', 'Dal tadka', 'Dry Bhindi', 'Masala papad', 'Sambar'],
-    snacks: ['Samosa'],
-    dinner: ['Veg kolhapuri', 'Plain Dal', 'Curd', 'Roti', 'Sambar'],
-  },
-  {
-    day: 'Tuesday',
-    index: 2,
-    breakfast: ['Dosa', 'Sambar', 'Coconut chutney', 'Sweet corn'],
-    lunch: ['Jeera rice', 'Dal tadka', 'Dry Bhindi', 'Masala papad', 'Sambar'],
-    snacks: ['Samosa'],
-    dinner: ['Veg kolhapuri', 'Plain Dal', 'Curd', 'Roti', 'Sambar'],
-  },
-  {
-    day: 'Wednesday',
-    index: 3,
-    breakfast: ['Dosa', 'Sambar', 'Coconut chutney', 'Sweet corn'],
-    lunch: ['Jeera rice', 'Dal tadka', 'Dry Bhindi', 'Masala papad', 'Sambar'],
-    snacks: ['Samosa'],
-    dinner: ['Veg kolhapuri', 'Plain Dal', 'Curd', 'Roti', 'Sambar'],
-  },
-  {
-    day: 'Thursday',
-    index: 4,
-    breakfast: ['Dosa', 'Sambar', 'Coconut chutney', 'Sweet corn'],
-    lunch: ['Jeera rice', 'Dal tadka', 'Dry Bhindi', 'Masala papad', 'Sambar'],
-    snacks: ['Samosa'],
-    dinner: ['Veg kolhapuri', 'Plain Dal', 'Curd', 'Roti', 'Sambar'],
-  },
-  {
-    day: 'Friday',
-    index: 5,
-    breakfast: ['Dosa', 'Sambar', 'Coconut chutney', 'Sweet corn'],
-    lunch: ['Jeera rice', 'Dal tadka', 'Dry Bhindi', 'Masala papad', 'Sambar'],
-    snacks: ['Samosa'],
-    dinner: ['Veg kolhapuri', 'Plain Dal', 'Curd', 'Roti', 'Sambar'],
-  },
-  {
-    day: 'Saturday',
-    index: 6,
-    breakfast: ['Dosa', 'Sambar', 'Coconut chutney', 'Sweet corn'],
-    lunch: ['Jeera rice', 'Dal tadka', 'Dry Bhindi', 'Masala papad', 'Sambar'],
-    snacks: ['Samosa'],
-    dinner: ['Veg kolhapuri', 'Plain Dal', 'Curd', 'Roti', 'Sambar'],
-  },
-];
-
-let newMenu = [];
+import {
+  Card,
+  Typography,
+  Grid,
+  Divider,
+  Button,
+  Box,
+} from '@material-ui/core';
+import axios from 'axios';
 
 class MessMenu extends Component {
+  state = { menu: [] };
+  constructor(props) {
+    super(props);
+  }
+
+  getMenu = () => {
+    axios.get('/api/v1/mess').then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        this.setState({ menu: response.data.data.docs });
+      }
+    });
+  };
+
+  componentDidMount = () => {
+    this.getMenu();
+  };
+
   render() {
     let today = new Date();
     let day = today.getDay();
-
-    let i = 0;
-    for (i = 0; i < 7; i++) {
-      newMenu[i] = menu[(day + i) % 7];
+    let newMenu = [];
+    if (this.state.menu.length > 0) {
+      let i = 0;
+      for (i = 0; i < 7; i++) {
+        newMenu[i] = this.state.menu[(day + i) % 7];
+      }
     }
     return (
       <>
@@ -97,39 +64,87 @@ class MessMenu extends Component {
                     padding: '20px',
                     backgroundColor: color,
                   }}
-                  key ={el.day}
+                  key={el.day}
                 >
-                  <Typography fontSize={26} style={{ fontWeight: 500 }} key = {el.day}>
+                  <Typography
+                    fontSize={26}
+                    style={{ fontWeight: 500 }}
+                    key={el.day}
+                  >
                     {el.day}
                   </Typography>
+                  {this.props.user && this.props.user.role === 'admin' ? (
+                    <Button
+                      color="primary"
+                      size="small"
+                      variant="text"
+                      onClick={() =>
+                        (window.location.href = `/app/mess-menu/${el.index}`)
+                      }
+                    >
+                      Edit
+                    </Button>
+                  ) : null}
                   <Divider />
                   <br />
-                  <Typography fontSize={20} style={{ fontWeight: 500 }} key = {'breakfast' + el.day}>
+                  <Typography
+                    fontSize={20}
+                    style={{ fontWeight: 500 }}
+                    key={'breakfast' + el.day}
+                  >
                     Breakfast
                   </Typography>
-                  {el.breakfast.map((it) => {
-                    return <Typography fontSize={18} key = {it}>{it}</Typography>;
+                  {el.breakfast.map((it, i) => {
+                    return (
+                      <Typography key={i} fontSize={18}>
+                        {it}
+                      </Typography>
+                    );
                   })}
                   <br />
-                  <Typography fontSize={20} style={{ fontWeight: 500 }} key = {'Lunch' + el.day}>
+                  <Typography
+                    fontSize={20}
+                    style={{ fontWeight: 500 }}
+                    key={'Lunch' + el.day}
+                  >
                     Lunch
                   </Typography>
-                  {el.lunch.map((it) => {
-                    return <Typography fontSize={18} key = {it}>{it}</Typography>;
+                  {el.lunch.map((it, i) => {
+                    return (
+                      <Typography key={i} fontSize={18}>
+                        {it}
+                      </Typography>
+                    );
                   })}
                   <br />
-                  <Typography fontSize={20} style={{ fontWeight: 500 }} key = {'Snacks' + el.day}>
+                  <Typography
+                    fontSize={20}
+                    style={{ fontWeight: 500 }}
+                    key={'Snacks' + el.day}
+                  >
                     Snacks
                   </Typography>
-                  {el.snacks.map((it) => {
-                    return <Typography fontSize={18} key = {it}>{it}</Typography>;
+                  {el.snacks.map((it, i) => {
+                    return (
+                      <Typography key={i} fontSize={18}>
+                        {it}
+                      </Typography>
+                    );
                   })}
                   <br />
-                  <Typography fontSize={20} style={{ fontWeight: 500 }} key = {'Dinner'+el.day}>
+                  <Typography
+                    fontSize={20}
+                    style={{ fontWeight: 500 }}
+                    key={'Dinner' + el.day}
+                  >
                     Dinner
                   </Typography>
-                  {el.dinner.map((it) => {
-                    return <Typography fontSize={18} key = {it}>{it}</Typography>;
+                  {el.dinner.map((it, i) => {
+                    return (
+                      <Typography key={i} fontSize={18}>
+                        {it}
+                      </Typography>
+                    );
                   })}
                 </Card>
               );

@@ -17,6 +17,7 @@ import NewComplaintView from './views/complaint/NewComplaintView';
 import EquipmentView from './views/product/EquipmentView';
 import Calendar from './views/Calendar';
 import MessMenu from './views/messmenu';
+import EditMenu from './views/messmenu/EditMenuView';
 
 const setUserAsProps = (user, cookies) => {
   return [
@@ -29,6 +30,7 @@ const setUserAsProps = (user, cookies) => {
         { path: 'customers', element: <CustomerListView user={user} /> },
         { path: 'dashboard', element: <DashboardView user={user} /> },
         { path: 'mess-menu', element: <MessMenu user={user} /> },
+        { path: 'mess-menu/:id', element: <EditMenu user={user} /> },
         { path: 'sports', element: <ProductListView user={user} /> },
         { path: 'sports/:id', element: <EquipmentView user={user} /> },
         { path: 'user/:id', element: <UsersView user={user} /> },
