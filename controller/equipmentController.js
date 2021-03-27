@@ -123,7 +123,7 @@ exports.issueEquipment = catchAsync(async (req, res, next) => {
     model: "Eqtype",
   });
 
-  if (userIssuedEquipment != null) {
+  if (userIssuedEquipment.length != 0) {
     console.log(userIssuedEquipment);
     res.status(200).json({
       status: "Fail",
