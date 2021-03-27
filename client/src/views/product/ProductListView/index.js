@@ -1,7 +1,20 @@
 import { useState } from 'react';
 import { React, Component } from 'react';
 import { Helmet } from 'react-helmet';
-import { Box, Container, Grid, Pagination } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Pagination,
+  Card,
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  DialogContentText,
+} from '@material-ui/core';
 import Toolbar from './Toolbar';
 import ProductCard from './ProductCard';
 import data from './data';
@@ -10,7 +23,10 @@ import axios from 'axios';
 class SportsList extends Component {
   state = {
     sports: [],
+    issued: '',
+    issuedId: '',
     isLoading: true,
+    open: false,
   };
   getAllSports = () => {
     axios
@@ -24,8 +40,45 @@ class SportsList extends Component {
       .catch((err) => console.log(err));
   };
 
+  checkStatus = () => {
+    axios
+      .get('/api/v1/sport/status')
+      .then((res) => {
+        this.setState({
+          issued: res.data.issued[0].id,
+          issuedId: res.data.issued[0]._id,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  returnEquipment = () => {
+    axios
+      .patch('/api/v1/sport/return', { id: this.state.issuedId })
+      .then((res) => {
+        console.log(res);
+        this.setState({ issued: '' });
+        this.getAllSports();
+        this.handleClose();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   componentDidMount = () => {
     this.getAllSports();
+    this.checkStatus();
   };
 
   render() {
@@ -34,6 +87,30 @@ class SportsList extends Component {
         <Helmet>
           <title>Sports</title>
         </Helmet>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          style={{ padding: '30px' }}
+        >
+          <DialogTitle id="alert-dialog-title">
+            <Typography fontSize={17}>Confirm Return?</Typography>
+          </DialogTitle>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              NO
+            </Button>
+            <Button
+              onClick={this.returnEquipment}
+              variant="contained"
+              color="primary"
+              autoFocus
+            >
+              CONFIRM
+            </Button>
+          </DialogActions>
+        </Dialog>
         <Box
           sx={{
             backgroundColor: 'background.default',
@@ -43,6 +120,28 @@ class SportsList extends Component {
         >
           <Container maxWidth={false}>
             <Toolbar />
+            {this.state.issued !== '' ? (
+              <Card
+                style={{
+                  margin: '30px 0px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-evenly',
+                }}
+              >
+                <Typography fontSize={16}>
+                  You are already issued {this.state.issued}. Do you want to
+                  return it?
+                </Typography>
+                <Button
+                  onClick={() => {
+                    this.handleClickOpen();
+                  }}
+                >
+                  RETURN
+                </Button>
+              </Card>
+            ) : null}
             {!this.state.isLoading ? (
               <>
                 <Box sx={{ pt: 3 }}>

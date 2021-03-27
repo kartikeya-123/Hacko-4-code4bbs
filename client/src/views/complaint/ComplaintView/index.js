@@ -1,33 +1,23 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import { Box, Container, Grid } from '@material-ui/core';
-import axios from 'axios';
-// import Profile from './Profile';
-import AddComplaint from './addComplaint';
 import ComplaintRegister from './complaintRegister';
 
 class ComplaintView extends Component {
   constructor(props) {
     super(props);
-    this.state = { complaints: [] };
+    this.state = {};
   }
-
-  getComplaints = () => {
-    axios.get(`/api/v1/complaint`).then((response) => {
-      console.log(response);
-      this.setState({ complaints: response.data.data.docs });
-    });
-  };
-
-  componentDidMount = () => {
-    this.getComplaints();
-  };
-
   render() {
+    let isAdmin = false;
+    if (this.props.user) {
+      isAdmin = this.props.user.role === 'admin';
+    }
+
     return (
       <>
         <Helmet>
-          <title>Add Complaint</title>
+          <title>Complaints</title>
         </Helmet>
         <Box
           sx={{
@@ -39,10 +29,7 @@ class ComplaintView extends Component {
           <Container maxWidth="lg">
             <Grid container spacing={3}>
               <Grid item lg={12} md={12} xs={12}>
-                <ComplaintRegister complaints={this.state.complaints} />
-              </Grid>
-              <Grid item lg={6} md={6} xs={12}>
-                <AddComplaint />
+                <ComplaintRegister admin={isAdmin.toString()} />
               </Grid>
             </Grid>
           </Container>

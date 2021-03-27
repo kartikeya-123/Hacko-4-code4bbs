@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 import {
   Box,
   Button,
@@ -9,36 +9,36 @@ import {
   Divider,
   Grid,
   TextField,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 const categories = [
   {
-    value: 'civil',
-    label: 'Civil',
+    value: "civil",
+    label: "Civil",
   },
   {
-    value: 'mess',
-    label: 'Hostel Mess',
+    value: "mess",
+    label: "Hostel Mess",
   },
   {
-    value: 'electrical',
-    label: 'Electrical',
+    value: "electrical",
+    label: "Electrical",
   },
   {
-    value: 'internet',
-    label: 'Internet',
+    value: "internet",
+    label: "Internet",
   },
 ];
 
-const hostels = [{ value: 'hostel1', label: 'Hostel 1' }];
+const hostels = [{ value: "hostel1", label: "Hostel 1" }];
 
 const ProfileDetails = (props) => {
   const [values, setValues] = useState({
-    subject: '',
-    description: '',
-    phone: '',
-    category: '',
-    hostel: 'hostel1',
+    subject: "",
+    description: "",
+    phone: "",
+    category: "",
+    hostel: "hostel1",
   });
 
   const handleChange = (event) => {
@@ -48,13 +48,13 @@ const ProfileDetails = (props) => {
     });
   };
 
-  const postComplaints = (event) => {
+  const postComplaint = (event) => {
     event.preventDefault();
-    axios.post('/api/v1/complaint', { ...values }).then((response) => {
+    axios.post("/api/v1/complaint", { ...values }).then((response) => {
       if (response.status === 201) {
-        window.alert('Complaint Added Successfully');
+        window.alert("Complaint Added Successfully");
       } else {
-        window.alert('Failed to Add Complaint! Try Again after some time');
+        window.alert("Failed to Add Complaint! Try Again after some time");
       }
     });
   };
@@ -64,7 +64,7 @@ const ProfileDetails = (props) => {
       <Card>
         <CardHeader
           subheader="Fill the form for registering your complaint"
-          title="Complaint"
+          title=" New Complaint"
         />
         <Divider />
         <CardContent>
@@ -152,8 +152,8 @@ const ProfileDetails = (props) => {
         <Divider />
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
+            display: "flex",
+            justifyContent: "flex-end",
             p: 2,
           }}
         >
@@ -170,7 +170,7 @@ const ProfileDetails = (props) => {
               )
             }
             onClick={(e) => {
-              postComplaints(e);
+              postComplaint(e);
             }}
           >
             Register Complaint
