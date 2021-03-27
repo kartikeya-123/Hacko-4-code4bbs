@@ -124,9 +124,9 @@ class Wrapper extends Component {
         ) : (
           <Grid container component="main" className={classes.root}>
             <CssBaseline />
-            <Grid item xs={false} sm={6} md={7} className={classes.image}>
+            {/* <Grid item xs={false} sm={6} md={7} className={classes.image}>
               <div className={classes.layer}></div>
-            </Grid>
+            </Grid> */}
             <Grid
               item
               xs={12}
