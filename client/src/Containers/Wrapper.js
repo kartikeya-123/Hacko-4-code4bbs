@@ -1,52 +1,52 @@
-import React, { Component } from "react";
-import Layout from "./Layout";
-import GoogleLogin from "react-google-login";
-import axios from "axios";
-import { withCookies } from "react-cookie";
-import { withStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
-import Background from "./../images/LoginPage.png";
+import React, { Component } from 'react';
+import Layout from './Layout';
+import GoogleLogin from 'react-google-login';
+import axios from 'axios';
+import { withCookies } from 'react-cookie';
+import { withStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import Background from './../images/LoginPage.png';
 
-import { SvgIcon } from "@material-ui/core";
+import { SvgIcon } from '@material-ui/core';
 
 const useStyles = (theme) => ({
   root: {
-    height: "100vh",
+    height: '100vh',
   },
   image: {
     backgroundImage: `url(${Background})`,
-    backgroundRepeat: "no-repeat",
+    backgroundRepeat: 'no-repeat',
     opacity: 0.95,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
   },
   layer: {
-    backgroundColor: "blue",
-    width: "100%",
-    height: "100%",
+    backgroundColor: 'blue',
+    width: '100%',
+    height: '100%',
     opacity: 0.2,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   paper: {
     margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
   },
   form: {
-    width: "100%",
+    width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -64,7 +64,7 @@ class Wrapper extends Component {
   checkIsLoggedIn = () => {
     const cookies = this.props.cookies.cookies;
     this.setState({
-      user: cookies.userData,
+      user: cookies.userData ? JSON.parse(cookies.userData) : null,
       isLoggedIn: cookies.isLoggedIn,
     });
   };
@@ -73,16 +73,16 @@ class Wrapper extends Component {
   };
   successResponseGoogle = (response) => {
     const emailUsed = response.profileObj.email;
-    const index = emailUsed.indexOf("@");
+    const index = emailUsed.indexOf('@');
     const domain = emailUsed.substr(index);
-    console.log("he");
-    if (domain !== "@iitbbs.ac.in") {
-      alert("Use your IIT Bhubaneswar email id.");
+    console.log('he');
+    if (domain !== '@iitbbs.ac.in') {
+      alert('Use your IIT Bhubaneswar email id.');
       return false;
     } else {
       axios
         .post(
-          "/api/v1/auth/login",
+          '/api/v1/auth/login',
           { tokenId: response.tokenId },
           {
             withCredentials: true,
@@ -98,12 +98,12 @@ class Wrapper extends Component {
             image: response.data.user.image,
           };
           const cookies = this.props.cookies;
-          cookies.set("userData", userData, {
-            path: "/",
+          cookies.set('userData', userData, {
+            path: '/',
             expires: new Date(response.data.expireAt),
           });
-          cookies.set("isLoggedIn", true, {
-            path: "/",
+          cookies.set('isLoggedIn', true, {
+            path: '/',
             expires: new Date(response.data.expireAt),
           });
         })
@@ -111,8 +111,8 @@ class Wrapper extends Component {
     }
   };
   failureResponseGoogle = (response) => {
-    console.log("check");
-    alert("Use your IIT BBS email for login");
+    console.log('he2');
+    alert('Use your IIT BBS email for login');
   };
 
   render() {
@@ -136,23 +136,26 @@ class Wrapper extends Component {
               elevation={6}
               square
               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                textAlign: "center",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center',
               }}
             >
               <div className={classes.paper}>
                 <Typography
                   style={{
-                    color: "black",
+                    color: 'black',
                     fontSize: 40,
                     opacity: 1,
-                    float: "right",
+                    float: 'right',
                   }}
                 >
                   Education Management System
                   <br />
+                  {/* <i style={{ fontSize: 20, textAlign: 'right' }}>
+                    find right people at the right time
+                  </i> */}
                 </Typography>
                 <Avatar className={classes.avatar}>
                   <LockOutlinedIcon />
@@ -170,7 +173,7 @@ class Wrapper extends Component {
                         color="primary"
                         onClick={renderProps.onClick}
                         style={{
-                          color: "white",
+                          color: 'white',
                           padding: 10,
                           margin: 20,
                           // background: '#ccd0dd'
@@ -185,7 +188,7 @@ class Wrapper extends Component {
                     isSignedIn={true}
                     onSuccess={this.successResponseGoogle}
                     onFailure={this.failureResponseGoogle}
-                    cookiePolicy={"single_host_origin"}
+                    cookiePolicy={'single_host_origin'}
                     icon={false}
                     padding={100}
                   />
