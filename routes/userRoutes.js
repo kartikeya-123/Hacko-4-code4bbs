@@ -38,4 +38,5 @@ router.get(
   authLogic.loggedInUser,
   userController.aboutMe
 );
+router.get("/other", userController.getProfile);
 module.exports = router;

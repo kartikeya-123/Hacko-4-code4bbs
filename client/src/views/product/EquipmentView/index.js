@@ -285,7 +285,7 @@ class EquipmentView extends Component {
                             <TableCell>{eq.id}</TableCell>
                             <TableCell>{eq.issuedTo.name}</TableCell>
                             <TableCell>
-                              {eq.issuedTo.roll || '19EE01003'}
+                              {eq.issuedTo.rollNumber || '19EE01003'}
                             </TableCell>
                             <TableCell>{eq.issuedTo.room || 'A120'}</TableCell>
                             <TableCell>{eq.issuedDate}</TableCell>

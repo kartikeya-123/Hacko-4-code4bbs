@@ -1,40 +1,40 @@
 import React, { Component } from 'react';
 import { Container, Grid, withStyles } from '@material-ui/core';
-import Page from 'src/components/Page';
+import Page from '../../../components/Page';
 import Profile from './Profile';
 import axios from 'axios';
 
-const useStyles = theme => ({
+const useStyles = (theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
     minHeight: '100%',
     paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
-  }
+    paddingTop: theme.spacing(3),
+  },
 });
 
 class Account extends Component {
   state = {
     user: [],
-    isLoading: true
+    isLoading: true,
   };
   getProfile = () => {
     let url = window.location.pathname.split('/');
-    let userId = url[2];
+    let userId = url[3];
+    console.log(userId);
     axios
       .get('/api/v1/user/other/?id=' + userId, {
-        withCredentials: true
+        withCredentials: true,
       })
-      .then(response => {
+      .then((response) => {
         this.setState({ user: response.data.data.user, isLoading: false });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         this.setState({ isLoading: false });
       });
   };
   componentDidMount = () => {
-    console.log(this.props.history);
     this.getProfile();
   };
 

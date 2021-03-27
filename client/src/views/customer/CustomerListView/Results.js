@@ -173,7 +173,7 @@ const Results = ({ className, customers, tags, ...rest }) => {
   };
 
   const getOtherProfile = (id) => {
-    let url = '/user/' + id;
+    let url = '/app/user/' + id;
     navigate(url);
   };
 
