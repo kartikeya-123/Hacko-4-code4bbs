@@ -47,11 +47,15 @@ const items = [
     title: 'Complaints',
   },
   {
+    href: '/app/calendar',
+    icon: ToolBarIcon,
+    title: 'Calendar',
+  },
+  {
     href: '/app/mess-menu',
     icon: FastfoodOutlinedIcon,
     title: 'MessMenu',
   },
-
   {
     href: '/app/account',
     icon: UserIcon,
