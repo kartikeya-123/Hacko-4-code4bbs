@@ -43,3 +43,32 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.updateProfile = catchAsync(async(req,res,next) => {
+  if(req.body.email || req.body.name) {
+    return next(
+      new AppError("You are not allowed to change name and email")
+    );
+  }
+
+  // console.log(req.user);
+  const changes = {
+    phoneNumber : req.body.phoneNumber,
+    hostel : req.body.hostelName,
+    room : req.body.roomNumber,
+    rollNumber : req.body.rollNumber,
+    admissionYear : '20' + req.body.rollNumber[0] + req.body.rollNumber[1],
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(req.user._id, changes, {
+    new : true,
+    runValidators : true,
+  })
+
+  res.status(200).json({
+    status : 'success',
+    updatedUserData : {
+      updatedUser
+    }
+  })
+})

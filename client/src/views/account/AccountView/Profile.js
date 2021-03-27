@@ -43,6 +43,11 @@ const Profile = ({ user }) => {
           </Typography>
           <Typography color="textSecondary" variant="body1">
             {`${user.hostel || 'Hostel 1'} || ${user.room || 'A100'}`}
+            {/* <br/>
+            {`${user.admissionYear || 'Please enter your roll Number'}`} */}
+          </Typography>
+          <Typography color="textSecondary" variant="body1">
+            {`${user.admissionYear || 'Please enter your Roll Number'}`}
           </Typography>
         </Box>
       </CardContent>
