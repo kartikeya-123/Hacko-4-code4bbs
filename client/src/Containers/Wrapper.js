@@ -96,7 +96,11 @@ class Wrapper extends Component {
             email: response.data.user.email,
             role: response.data.user.role,
             image: response.data.user.image,
+            phoneNumber: response.data.user.phoneNumber,
+            rollNumber:response.data.user.rollNumber,
+            room: response.data.user.room
           };
+          console.log(this.state.user)
           const cookies = this.props.cookies;
           cookies.set('userData', userData, {
             path: '/',

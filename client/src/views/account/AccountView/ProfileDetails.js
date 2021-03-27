@@ -17,8 +17,10 @@ class ProfileDetails extends Component {
     this.state = {
       name : this.props.user.name,
       email: this.props.user.email,
-      // phoneNumber : this.props.userDetails.phoneNumber,
-      // hostel : this.props.userDetails.hostel
+      phoneNumber : this.props.user.phoneNumber,
+      hostel : this.props.user.hostel,
+      rollNumber : this.props.user.rollNumber,
+      room : this.props.user.room
     };
   }
   
@@ -38,7 +40,7 @@ class ProfileDetails extends Component {
         label: 'Hostel 3',
       },
     ];
-    
+    console.log(this.props.user)
     return (
       <form autoComplete="off" noValidate>
       <Card>
@@ -76,7 +78,7 @@ class ProfileDetails extends Component {
                 name="phone"
                 onChange={this.handleChange}
                 type="number"
-                // value={this.state.phoneNumber}
+                value={this.state.phoneNumber}
                 variant="outlined"
               />
             </Grid>
@@ -89,7 +91,7 @@ class ProfileDetails extends Component {
                 required
                 select
                 SelectProps={{ native: true }}
-                // value={this.state.hostel}
+                value={this.state.hostel}
                 variant="outlined"
               >
                 {hostels.map((option) => (
@@ -106,7 +108,7 @@ class ProfileDetails extends Component {
                 name="room"
                 onChange={this.handleChange}
                 required
-                // value={this.props.userDetails.room}
+                value={this.state.room}
                 variant="outlined"
               >
                 {/* {states.map((option) => (
@@ -123,7 +125,7 @@ class ProfileDetails extends Component {
                 name="rollNumber"
                 onChange={this.handleChange}
                 required
-                // value={this.props.userDetails.rollNumber}
+                value={this.state.rollNumber}
                 variant="outlined"
               >
               </TextField>
