@@ -63,14 +63,13 @@ const menu = [
 let newMenu = [];
 
 class MessMenu extends Component {
-  
   render() {
     let today = new Date();
     let day = today.getDay();
 
     let i = 0;
-    for(i = 0; i<7; i++) {
-      newMenu[i] = menu[(day+i)%7]
+    for (i = 0; i < 7; i++) {
+      newMenu[i] = menu[(day + i) % 7];
     }
     return (
       <>
@@ -89,6 +88,7 @@ class MessMenu extends Component {
             {newMenu.map((el) => {
               return (
                 <Card
+                  key={el.index}
                   style={{
                     width: '300px',
                     margin: '10px 20px 20px 20px',
