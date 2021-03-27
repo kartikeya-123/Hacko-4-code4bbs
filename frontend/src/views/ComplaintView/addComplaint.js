@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 import {
   Box,
   Button,
@@ -23,6 +24,10 @@ const categories = [
     value: 'electrical',
     label: 'Electrical',
   },
+  {
+    value: 'internet',
+    label: 'Internet',
+  },
 ];
 
 const hostels = [{ value: 'hostel1', label: 'Hostel 1' }];
@@ -40,6 +45,17 @@ const ProfileDetails = (props) => {
     setValues({
       ...values,
       [event.target.name]: event.target.value,
+    });
+  };
+
+  const postComplaints = (event) => {
+    event.preventDefault();
+    axios.post('/api/v1/complaint', { ...values }).then((response) => {
+      if (response.status === 201) {
+        window.alert('Complaint Added Successfully');
+      } else {
+        window.alert('Failed to Add Complaint! Try Again after some time');
+      }
     });
   };
 
@@ -107,6 +123,7 @@ const ProfileDetails = (props) => {
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
+                required
                 label="Phone Number"
                 name="phone"
                 onChange={handleChange}
@@ -140,7 +157,22 @@ const ProfileDetails = (props) => {
             p: 2,
           }}
         >
-          <Button color="primary" variant="contained">
+          <Button
+            color="primary"
+            variant="contained"
+            disabled={
+              !(
+                values.subject &&
+                values.description &&
+                values.phone &&
+                values.category &&
+                values.hostel
+              )
+            }
+            onClick={(e) => {
+              postComplaints(e);
+            }}
+          >
             Register Complaint
           </Button>
         </Box>

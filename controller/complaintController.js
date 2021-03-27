@@ -6,7 +6,7 @@ const { sendEmail } = require("../utils/sendEmail");
 
 exports.getAllComplaints = catchAsync(async (req, res, next) => {
   const docs = await Complaint.find({ status: "pending" })
-    .populate("name room")
+    .populate({ path: "student", select: "name room", model: "User" })
     .sort({ time: 1 });
 
   res.status(200).json({
@@ -32,9 +32,9 @@ exports.getAComplaint = catchAsync(async (req, res, next) => {
 });
 
 exports.createComplaint = catchAsync(async (req, res, next) => {
-  const { subject, description, category, hostel } = req.body;
+  const { subject, description, category, hostel, phone } = req.body;
   const student = req.user;
-  const createdAt = new Date.now();
+  const createdAt = Date.now();
 
   const newComplaint = await Complaint.create({
     student,
@@ -43,6 +43,7 @@ exports.createComplaint = catchAsync(async (req, res, next) => {
     description,
     category,
     hostel,
+    phone,
   });
 
   res.status(201).json({
@@ -72,7 +73,7 @@ exports.addRemarkToComplaint = catchAsync(async (req, res, next) => {
 exports.closeComplaint = catchAsync(async (req, res, next) => {
   const closedComplaint = await Complaint.findByIdAndUpdate(req.params.id, {
     status: "solved",
-  }).populate("name email");
+  }).populate({ path: "student", select: "name email", model: "User" });
 
   if (!closedComplaint) {
     return next(new AppError("Complaint with the given id does not exist"));

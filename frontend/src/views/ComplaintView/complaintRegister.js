@@ -1,6 +1,6 @@
-import moment from 'moment';
-import { v4 as uuid } from 'uuid';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import moment from "moment";
+import { v4 as uuid } from "uuid";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import {
   Box,
   Button,
@@ -15,71 +15,8 @@ import {
   TableRow,
   TableSortLabel,
   Tooltip,
-} from '@material-ui/core';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-
-const complaints = [
-  {
-    id: uuid(),
-
-    student: {
-      name: 'Ekaterina Tankova',
-      room: 'A-190',
-    },
-    createdAt: 1555016400000,
-    subject: 'Tap Leakage',
-    category: 'Civil',
-    description: 'Tap is leaked on the bathroom 3 of 1st floor.',
-  },
-  {
-    id: uuid(),
-
-    student: {
-      name: 'Ekaterina Tankova',
-      room: 'A-190',
-    },
-    createdAt: 1555016400000,
-    subject: 'Tap Leakage',
-    category: 'Civil',
-    description: 'Tap is leaked on the bathroom 3 of 1st floor.',
-  },
-  {
-    id: uuid(),
-
-    student: {
-      name: 'Ekaterina Tankova',
-      room: 'A-190',
-    },
-    createdAt: 1555016400000,
-    subject: 'Tap Leakage',
-    category: 'Civil',
-    description: 'Tap is leaked on the bathroom 3 of 1st floor.',
-  },
-  {
-    id: uuid(),
-
-    student: {
-      name: 'Ekaterina Tankova',
-      room: 'A-190',
-    },
-    createdAt: 1555016400000,
-    subject: 'Tap Leakage',
-    category: 'Civil',
-    description: 'Tap is leaked on the bathroom 3 of 1st floor.',
-  },
-  {
-    id: uuid(),
-
-    student: {
-      name: 'Ekaterina Tankova',
-      room: 'A-190',
-    },
-    createdAt: 1555016400000,
-    subject: 'Tap Leakage',
-    category: 'Civil',
-    description: 'Tap is leaked on the bathroom 3 of 1st floor.',
-  },
-];
+} from "@material-ui/core";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 
 const Complaints = (props) => (
   <Card {...props}>
@@ -97,22 +34,26 @@ const Complaints = (props) => (
                   </TableSortLabel>
                 </Tooltip>
               </TableCell>
-              <TableCell>Subject</TableCell>
+              <TableCell>Category</TableCell>
+              {/* <TableCell>Subject</TableCell> */}
               <TableCell>Description</TableCell>
               <TableCell>Student Name</TableCell>
               <TableCell>Room Number</TableCell>
+              <TableCell>Phone Number</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {complaints.map((complaint) => (
-              <TableRow hover key={complaint.id}>
+            {props.complaints.map((complaint) => (
+              <TableRow hover key={complaint._id}>
                 <TableCell>
-                  {moment(complaint.createdAt).format('DD/MM/YYYY')}
+                  {moment(complaint.createdAt).format("DD/MM/YYYY hh:mm A")}
                 </TableCell>
-                <TableCell>{complaint.subject}</TableCell>
+                <TableCell>{complaint.category.toUpperCase()}</TableCell>
+                {/* <TableCell>{complaint.subject}</TableCell> */}
                 <TableCell>{complaint.description}</TableCell>
                 <TableCell>{complaint.student.name}</TableCell>
                 <TableCell>{complaint.student.room}</TableCell>
+                <TableCell>{complaint.phone}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -121,8 +62,8 @@ const Complaints = (props) => (
     </PerfectScrollbar>
     <Box
       sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
+        display: "flex",
+        justifyContent: "flex-end",
         p: 2,
       }}
     >

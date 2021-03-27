@@ -25,13 +25,17 @@ const complaintSchema = new mongoose.Schema({
   category: {
     type: String,
     required: [true, "A Complaint should be of some category"],
-    enum: ["civil", "mess", "electrical"],
+    enum: ["civil", "mess", "electrical", "internet"],
   },
   status: {
     type: String,
     required: [true, "A complaint should have a status"],
     default: "pending",
     enum: ["pending", "solved"],
+  },
+  phone: {
+    type: Number,
+    required: [true, "A complaint should have a phone number"],
   },
   remark: {
     type: String,

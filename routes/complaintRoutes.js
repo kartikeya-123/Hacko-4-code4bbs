@@ -12,7 +12,7 @@ router.get("/", complaintController.getAllComplaints);
 router.get("/:id", complaintController.getAComplaint);
 
 //Create a Complaint
-router.post("/", complaintController.createComplaint);
+router.post("/", authLogic.loggedInUser, complaintController.createComplaint);
 
 //resolve a complaint
 router.patch("/resolve/:id", complaintController.closeComplaint);
