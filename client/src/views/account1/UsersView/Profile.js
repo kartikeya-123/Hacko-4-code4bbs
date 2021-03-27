@@ -277,11 +277,10 @@ const Profile = ({
                     );
                   })
                 ) : (
-                  <TableRow>
-                    <TableCell align="center" style={{ border: 0 }}>
-                      <Chip label="No contact info of the user available" />
-                    </TableCell>
-                  </TableRow>
+                  <Chip
+                    label="No contact info of the user available"
+                    style={{ margin: '10px auto 0px auto' }}
+                  />
                 )}
               </Grid>
             </CardContent>

@@ -171,7 +171,7 @@ class SportsList extends Component {
                   >
                     <Pagination
                       color="primary"
-                      count={this.state.sports.length / 3 + 1}
+                      count={parseInt((this.state.sports.length - 1) / 6) + 1}
                       size="small"
                     />
                   </Box>
