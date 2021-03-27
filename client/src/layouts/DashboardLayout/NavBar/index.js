@@ -18,6 +18,7 @@ import {
   Users as UsersIcon,
   Tool as ToolBarIcon,
   Calendar as CalendarIcon,
+  Clock as TimetableIcon
 } from 'react-feather';
 
 import NavItem from './NavItem';
@@ -63,6 +64,11 @@ const items = [
     icon: UserIcon,
     title: 'Profile',
   },
+  {
+    href: '/app/time-table',
+    icon: TimetableIcon,
+    title: 'Time Table'
+  }
 ];
 const logOut = (cookies) => {
   axios

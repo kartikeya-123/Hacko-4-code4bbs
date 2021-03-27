@@ -18,7 +18,7 @@ import EquipmentView from './views/product/EquipmentView';
 import Calendar from './views/Calendar';
 import MessMenu from './views/messmenu';
 import EditMenu from './views/messmenu/EditMenuView';
-
+import TimeTableView from './views/timeTable';
 const setUserAsProps = (user, cookies) => {
   return [
     {
@@ -38,6 +38,7 @@ const setUserAsProps = (user, cookies) => {
         { path: 'calendar', element: <Calendar /> },
         { path: 'complaints', element: <ComplaintView user={user} /> },
         { path: 'complaints/add', element: <NewComplaintView user={user} /> },
+        { path: 'time-table', element: <TimeTableView user={user} /> },
         { path: '*', element: <Navigate to="/404" /> },
       ],
     },
