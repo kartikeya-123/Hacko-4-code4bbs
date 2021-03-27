@@ -97,38 +97,39 @@ class MessMenu extends Component {
                     padding: '20px',
                     backgroundColor: color,
                   }}
+                  key ={el.day}
                 >
-                  <Typography fontSize={26} style={{ fontWeight: 500 }}>
+                  <Typography fontSize={26} style={{ fontWeight: 500 }} key = {el.day}>
                     {el.day}
                   </Typography>
                   <Divider />
                   <br />
-                  <Typography fontSize={20} style={{ fontWeight: 500 }}>
+                  <Typography fontSize={20} style={{ fontWeight: 500 }} key = {'breakfast' + el.day}>
                     Breakfast
                   </Typography>
                   {el.breakfast.map((it) => {
-                    return <Typography fontSize={18}>{it}</Typography>;
+                    return <Typography fontSize={18} key = {it}>{it}</Typography>;
                   })}
                   <br />
-                  <Typography fontSize={20} style={{ fontWeight: 500 }}>
+                  <Typography fontSize={20} style={{ fontWeight: 500 }} key = {'Lunch' + el.day}>
                     Lunch
                   </Typography>
                   {el.lunch.map((it) => {
-                    return <Typography fontSize={18}>{it}</Typography>;
+                    return <Typography fontSize={18} key = {it}>{it}</Typography>;
                   })}
                   <br />
-                  <Typography fontSize={20} style={{ fontWeight: 500 }}>
+                  <Typography fontSize={20} style={{ fontWeight: 500 }} key = {'Snacks' + el.day}>
                     Snacks
                   </Typography>
                   {el.snacks.map((it) => {
-                    return <Typography fontSize={18}>{it}</Typography>;
+                    return <Typography fontSize={18} key = {it}>{it}</Typography>;
                   })}
                   <br />
-                  <Typography fontSize={20} style={{ fontWeight: 500 }}>
+                  <Typography fontSize={20} style={{ fontWeight: 500 }} key = {'Dinner'+el.day}>
                     Dinner
                   </Typography>
                   {el.dinner.map((it) => {
-                    return <Typography fontSize={18}>{it}</Typography>;
+                    return <Typography fontSize={18} key = {it}>{it}</Typography>;
                   })}
                 </Card>
               );
