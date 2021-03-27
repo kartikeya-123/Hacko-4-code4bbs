@@ -7,7 +7,8 @@ import {
   Box,
   Hidden,
   IconButton,
-  Toolbar
+  Toolbar,
+  Typography,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
@@ -18,10 +19,15 @@ const TopBar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
 
   return (
-    <AppBar elevation={0} {...rest}>
+    <AppBar elevation={0} {...rest} style={{ backgroundColor: '#123C69' }}>
       <Toolbar>
         <RouterLink to="/">
-          <Logo />
+          <Typography
+            fontSize={20}
+            style={{ color: 'white', fontWeight: 'bolder' }}
+          >
+            College Management Portal
+          </Typography>
         </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
         <Hidden mdDown>
@@ -49,7 +55,7 @@ const TopBar = ({ onMobileNavOpen, ...rest }) => {
 };
 
 TopBar.propTypes = {
-  onMobileNavOpen: PropTypes.func
+  onMobileNavOpen: PropTypes.func,
 };
 
 export default TopBar;

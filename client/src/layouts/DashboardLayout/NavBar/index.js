@@ -35,7 +35,7 @@ const items = [
   {
     href: '/app/customers',
     icon: UsersIcon,
-    title: 'Customers',
+    title: 'Students',
   },
   {
     href: '/app/sports',
@@ -52,7 +52,7 @@ const items = [
   {
     href: '/app/account',
     icon: UserIcon,
-    title: 'Account',
+    title: 'Profile',
   },
 ];
 const logOut = (cookies) => {
