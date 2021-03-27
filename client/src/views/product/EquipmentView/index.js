@@ -174,7 +174,7 @@ class EquipmentView extends Component {
         </Button>
       </form>
     );
-
+    console.log(this.props.user);
     return (
       <>
         {!this.state.isLoading ? (
@@ -229,23 +229,23 @@ class EquipmentView extends Component {
                   p: 2,
                 }}
               >
-                {this.props.user &&
-                this.props.user.role === 'admin' &&
-                !this.state.addMore ? (
-                  <Button
-                    color="primary"
-                    endIcon={<ArrowDownIcon />}
-                    size="small"
-                    variant="text"
-                    onClick={() => {
-                      this.setState({ addMore: true });
-                    }}
-                  >
-                    Add More
-                  </Button>
-                ) : (
-                  addForm
-                )}
+                {this.props.user && this.props.user.role === 'admin' ? (
+                  !this.state.addMore ? (
+                    <Button
+                      color="primary"
+                      endIcon={<ArrowDownIcon />}
+                      size="small"
+                      variant="text"
+                      onClick={() => {
+                        this.setState({ addMore: true });
+                      }}
+                    >
+                      Add More
+                    </Button>
+                  ) : (
+                    addForm
+                  )
+                ) : null}
               </Box>
             </Card>
             <br></br>
