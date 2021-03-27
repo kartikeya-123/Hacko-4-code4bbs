@@ -1,4 +1,6 @@
 import moment from 'moment';
+import React, { Component } from 'react';
+import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
@@ -18,61 +20,123 @@ import {
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
-const Complaints = (props) => (
-  <Card {...props}>
-    <CardHeader title="Pending Complaints" />
-    <Divider />
-    <PerfectScrollbar>
-      <Box sx={{ minWidth: 800 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell sortDirection="desc">
-                <Tooltip enterDelay={300} title="Sort">
-                  <TableSortLabel active direction="desc">
-                    Date Created
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-              <TableCell>Subject</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Student Name</TableCell>
-              <TableCell>Room Number</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {props.complaints.map((complaint) => (
-              <TableRow hover key={complaint.id}>
-                <TableCell>
-                  {moment(complaint.createdAt).format('DD/MM/YYYY')}
-                </TableCell>
-                <TableCell>{complaint.subject}</TableCell>
-                <TableCell>{complaint.description}</TableCell>
-                <TableCell>{complaint.student.name}</TableCell>
-                <TableCell>{complaint.student.room}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </PerfectScrollbar>
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2,
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon />}
-        size="small"
-        variant="text"
-      >
-        View all
-      </Button>
-    </Box>
-  </Card>
-);
+class complaintRegister extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { complaints: [] };
+  }
 
-export default Complaints;
+  getComplaints = () => {
+    axios.get(`/api/v1/complaint`).then((response) => {
+      console.log(response);
+      this.setState({ complaints: response.data.data.docs });
+    });
+  };
+
+  componentDidMount = () => {
+    this.getComplaints();
+  };
+
+  resolveComplaint = (e, id) => {
+    e.preventDefault();
+    axios
+      .patch(`/api/v1/complaint/resolve/${id}`, {})
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          window.alert(response.data.message);
+          const A = [...this.state.complaints];
+          const index = A.indexOf((x) => x._id === id);
+          A.splice(index, 1);
+          this.setState({ complaints: A });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  render() {
+    return (
+      <Card {...this.props}>
+        <CardHeader title="Pending Complaints" />
+        <Divider />
+        <PerfectScrollbar>
+          <Box sx={{ minWidth: 800 }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell sortDirection="desc">
+                    <Tooltip enterDelay={300} title="Sort">
+                      <TableSortLabel active direction="desc">
+                        Date Created
+                      </TableSortLabel>
+                    </Tooltip>
+                  </TableCell>
+                  <TableCell>Category</TableCell>
+                  {/* <TableCell>Subject</TableCell> */}
+                  <TableCell>Description</TableCell>
+                  <TableCell>Student Name</TableCell>
+                  <TableCell>Room Number</TableCell>
+                  <TableCell>Phone Number</TableCell>
+                  {this.props.admin === 'true' ? (
+                    <TableCell>Resolve</TableCell>
+                  ) : null}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.state.complaints.map((complaint) => (
+                  <TableRow hover key={complaint._id}>
+                    <TableCell>
+                      {moment(complaint.createdAt).format('DD/MM/YYYY hh:mm A')}
+                    </TableCell>
+                    <TableCell>{complaint.category.toUpperCase()}</TableCell>
+                    {/* <TableCell>{complaint.subject}</TableCell> */}
+                    <TableCell>{complaint.description}</TableCell>
+                    <TableCell>{complaint.student.name}</TableCell>
+                    <TableCell>{complaint.student.room}</TableCell>
+                    <TableCell>{complaint.phone}</TableCell>
+                    {this.props.admin === 'true' ? (
+                      <TableCell>
+                        <Button
+                          color="success"
+                          size="small"
+                          onClick={(e) => {
+                            this.resolveComplaint(e, complaint._id);
+                          }}
+                        >
+                          Mark as Resolved
+                        </Button>
+                      </TableCell>
+                    ) : null}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Box>
+        </PerfectScrollbar>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            p: 2,
+          }}
+        >
+          <Button
+            color="primary"
+            endIcon={<ArrowRightIcon />}
+            size="small"
+            variant="text"
+            onClick={(e) => {
+              window.location.href = '/app/complaints/add';
+            }}
+          >
+            Lodge Complaint
+          </Button>
+        </Box>
+      </Card>
+    );
+  }
+}
+
+export default complaintRegister;
