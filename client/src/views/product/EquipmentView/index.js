@@ -25,7 +25,6 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import { response } from 'express';
 
 class EquipmentView extends Component {
   state = {
@@ -34,6 +33,7 @@ class EquipmentView extends Component {
     isLoading: true,
     user: null,
     userIssued: false,
+    issues: false,
   };
 
   constructor() {
@@ -51,6 +51,15 @@ class EquipmentView extends Component {
           issuedEquipments: res.data.issuedEquipments,
           isLoading: false,
         });
+        if (res.data.issuedEquipments) {
+          this.setState({ issues: true });
+        }
+        for (let x of res.data.issuedEquipments) {
+          if (this.state.user.email == x.issuedTo.email) {
+            this.setState({ userIssued: true });
+            break;
+          }
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -63,6 +72,7 @@ class EquipmentView extends Component {
       .patch('/api/v1/sport/issue', data, { withCredentials: true })
       .then((response) => {
         const status = response.data.status;
+        console.log(status);
         if (status == 'Fail') {
           const issuedEquipment = response.data.userIssuedEquipment;
           const name = issuedEquipment[0].id;
@@ -156,6 +166,10 @@ class EquipmentView extends Component {
             </Card>
             <br></br>
             <br></br>
+            {/* {
+              this.state.userIssued ? 
+
+            } */}
             <Card
               style={{
                 marginLeft: '30px',
@@ -185,17 +199,18 @@ class EquipmentView extends Component {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {this.state.issuedEquipments.map((eq) => (
-                        <TableRow hover key={eq.id}>
-                          <TableCell>{eq.id}</TableCell>
-                          <TableCell>{eq.issuedTo.name}</TableCell>
-                          <TableCell>
-                            {eq.issuedTo.roll || '19EE01003'}
-                          </TableCell>
-                          <TableCell>{eq.issuedTo.room || 'A120'}</TableCell>
-                          <TableCell>{eq.issuedDate}</TableCell>
-                        </TableRow>
-                      ))}
+                      {this.state.issues &&
+                        this.state.issuedEquipments.map((eq) => (
+                          <TableRow hover key={eq.id}>
+                            <TableCell>{eq.id}</TableCell>
+                            <TableCell>{eq.issuedTo.name}</TableCell>
+                            <TableCell>
+                              {eq.issuedTo.roll || '19EE01003'}
+                            </TableCell>
+                            <TableCell>{eq.issuedTo.room || 'A120'}</TableCell>
+                            <TableCell>{eq.issuedDate}</TableCell>
+                          </TableRow>
+                        ))}
                     </TableBody>
                   </Table>
                 </Box>
