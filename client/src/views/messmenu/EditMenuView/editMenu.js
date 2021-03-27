@@ -59,6 +59,18 @@ class editMenu extends Component {
     return weekday[index];
   };
 
+  updateMenu = (e) => {
+    e.preventDefault();
+    axios
+      .patch(`/api/v1/mess/menu/${this.id}`, { ...this.state.values })
+      .then((response) => {
+        if (response.status === 200) {
+          window.alert(`${this.mapDays(this.id)} Menu Updated Successfully`);
+          window.location.href = '/app/mess-menu';
+        }
+      });
+  };
+
   render() {
     return (
       <form autoComplete="off" noValidate {...this.props}>
@@ -146,7 +158,7 @@ class editMenu extends Component {
                 )
               }
               onClick={(e) => {
-                e.preventDefault();
+                this.updateMenu(e);
               }}
             >
               Update Menu

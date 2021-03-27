@@ -55,7 +55,7 @@ class complaintRegister extends Component {
 
   render() {
     return (
-      <Card {...this.props}>
+      <Card {...this.props} style={{ marginTop: '2%' }}>
         <CardHeader title="My Pending Complaints" />
         <Divider />
         <PerfectScrollbar>

@@ -3,21 +3,21 @@ import { Box, Container, Grid } from '@material-ui/core';
 import Profile from './Profile';
 import ProfileDetails from './ProfileDetails';
 import axios from 'axios';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import MyComplaints from './myComplaints';
 
 class Account extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userDetails : null
+      userDetails: null,
     };
   }
-  
+
   render() {
     let userDetails = null;
-    if(userDetails !== null) {
-      userDetails = this.state.userDetails
+    if (userDetails !== null) {
+      userDetails = this.state.userDetails;
     }
     return (
       <>
@@ -37,16 +37,20 @@ class Account extends Component {
                 <Profile user={this.props.user} />
               </Grid>
               <Grid item lg={8} md={6} xs={12}>
-                <ProfileDetails user={this.props.user} userDetails = {userDetails} />
+                <ProfileDetails
+                  user={this.props.user}
+                  userDetails={userDetails}
+                />
               </Grid>
-            <Grid item lg={12} md={6} xs={12}>
-              <MyComplaints user={this.props.user} />
-            </Grid>
+
+              <Grid item lg={12} md={6} xs={12}>
+                <MyComplaints user={this.props.user} />
+              </Grid>
             </Grid>
           </Container>
         </Box>
       </>
-    )
+    );
   }
 }
 

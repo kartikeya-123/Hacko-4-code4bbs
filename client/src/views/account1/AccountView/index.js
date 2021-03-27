@@ -3,6 +3,7 @@ import { Container, Grid, withStyles } from '@material-ui/core';
 import Page from '../../../components/Page';
 import Profile from './Profile';
 import axios from 'axios';
+import MyComplaints from './myComplaints';
 
 const useStyles = (theme) => ({
   root: {
@@ -66,6 +67,9 @@ class Account extends Component {
                 <Grid align="center">
                   <Grid item lg={12} md={10} xs={12}>
                     <Profile profile={this.state.user} />
+                  </Grid>
+                  <Grid item lg={12} md={12} xs={12}>
+                    <MyComplaints user={this.props.user} />
                   </Grid>
                 </Grid>
               </Container>
