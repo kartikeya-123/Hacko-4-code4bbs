@@ -12,6 +12,7 @@ import SettingsView from './views/settings/SettingsView';
 import ComplaintView from './views/complaint/ComplaintView';
 import NewComplaintView from './views/complaint/NewComplaintView';
 import EquipmentView from './views/product/EquipmentView';
+import MessMenu from './views/messmenu';
 
 const setUserAsProps = (user, cookies) => {
   return [
@@ -22,6 +23,7 @@ const setUserAsProps = (user, cookies) => {
         { path: 'account', element: <AccountView user={user} /> },
         { path: 'customers', element: <CustomerListView user={user} /> },
         { path: 'dashboard', element: <DashboardView user={user} /> },
+        { path: 'mess-menu', element: <MessMenu user={user} /> },
         { path: 'sports', element: <ProductListView user={user} /> },
         { path: 'sports/:id', element: <EquipmentView user={user} /> },
         { path: 'settings', element: <SettingsView /> },
