@@ -17,7 +17,9 @@ import {
   User as UserIcon,
   Users as UsersIcon,
   Tool as ToolBarIcon,
+  Calendar as CalendarIcon,
 } from 'react-feather';
+
 import NavItem from './NavItem';
 import { GoogleLogout } from 'react-google-login';
 import axios from 'axios';
@@ -48,7 +50,7 @@ const items = [
   },
   {
     href: '/app/calendar',
-    icon: ToolBarIcon,
+    icon: CalendarIcon,
     title: 'Calendar',
   },
   {

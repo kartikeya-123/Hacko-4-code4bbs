@@ -7,6 +7,7 @@ import {
   Grid,
   Pagination,
   touchRippleClasses,
+  TextField,
 } from '@material-ui/core';
 import axios from 'axios';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -25,7 +26,6 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import ArrowDownIcon from '@material-ui/icons/ArrowDropDown';
-import AddEquipment from './addEquipment';
 
 class EquipmentView extends Component {
   state = {
@@ -36,6 +36,7 @@ class EquipmentView extends Component {
     userIssued: false,
     issues: false,
     addMore: false,
+    newId: null,
   };
 
   constructor() {
@@ -102,12 +103,78 @@ class EquipmentView extends Component {
         console.log(err);
       });
   };
+
+  handleChange = (e) => {
+    e.preventDefault();
+    const newValue = e.target.value;
+    this.setState({ newId: newValue });
+  };
+
+  addEquipment = (event) => {
+    event.preventDefault();
+    const values = {
+      id: this.state.newId,
+      type: this.id,
+    };
+
+    axios.post('/api/v1/sport/eq', { ...values }).then((response) => {
+      if (response.status === 201) {
+        window.alert('Equipment Added Successfully');
+        console.log(response);
+        const A = [...this.state.availableEquipments];
+        A.push(response.data.equipment);
+
+        this.setState({ addMore: false, availableEquipments: A });
+      } else {
+        window.alert('Failed to Add Equipment! Try Again after some time');
+      }
+    });
+  };
+
   componentDidMount = () => {
     // this.setState({ user: this.props.user });
     this.getEquipments();
   };
 
   render() {
+    const addForm = (
+      <form autoComplete="off" noValidate {...this.props}>
+        <Grid item md={12} xs={12}>
+          <TextField
+            required
+            label="New Equipment ID"
+            name="id"
+            onChange={(e) => this.handleChange(e)}
+            value={this.state.newId}
+            variant="outlined"
+          />
+        </Grid>
+        <br />
+        <Button
+          color="primary"
+          variant="contained"
+          size="small"
+          disabled={!this.state.newId}
+          onClick={(e) => {
+            this.addEquipment(e);
+          }}
+        >
+          Add Equipment
+        </Button>
+        &nbsp;
+        <Button
+          color="primary"
+          variant="contained"
+          size="small"
+          onClick={() => {
+            this.setState({ addMore: false });
+          }}
+        >
+          Cancel
+        </Button>
+      </form>
+    );
+    console.log(this.props.user);
     return (
       <>
         {!this.state.isLoading ? (
@@ -162,21 +229,23 @@ class EquipmentView extends Component {
                   p: 2,
                 }}
               >
-                {!this.state.addMore ? (
-                  <Button
-                    color="primary"
-                    endIcon={<ArrowDownIcon />}
-                    size="small"
-                    variant="text"
-                    onClick={() => {
-                      this.setState({ addMore: true });
-                    }}
-                  >
-                    Add More
-                  </Button>
-                ) : (
-                  <AddEquipment />
-                )}
+                {this.props.user && this.props.user.role === 'admin' ? (
+                  !this.state.addMore ? (
+                    <Button
+                      color="primary"
+                      endIcon={<ArrowDownIcon />}
+                      size="small"
+                      variant="text"
+                      onClick={() => {
+                        this.setState({ addMore: true });
+                      }}
+                    >
+                      Add More
+                    </Button>
+                  ) : (
+                    addForm
+                  )
+                ) : null}
               </Box>
             </Card>
             <br></br>

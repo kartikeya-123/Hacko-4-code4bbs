@@ -5,25 +5,6 @@ import {
   ChangedEventArgs,
 } from '@syncfusion/ej2-react-calendars';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-// import {
-//   Button,
-//   Card,
-//   CardHeader,
-//   Chip,
-//   Divider,
-//   Table,
-//   TableBody,
-//   TableCell,
-//   TableHead,
-//   TableRow,
-//   TableSortLabel,
-//   Tooltip,
-//   Box,
-//   Container,
-//   Grid,
-//   Pagination,
-//   touchRippleClasses,
-// } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -188,34 +169,38 @@ class Calendar extends Component {
     const { classes } = this.props;
 
     return (
-      <div style={{ margin: '20px' }}>
+      <div
+        style={{
+          margin: '20px',
+          display: 'flex',
+          justifyContent: 'space-evenly',
+        }}
+      >
         <CalendarComponent change={this.onChangeDate}></CalendarComponent>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h6" className={classes.title}>
-              Current Events Happening
-            </Typography>
-            <div className={classes.demo}>
-              <List>
-                {this.state.events[this.state.date].currEvents.map(
-                  (event, index) => (
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <GrTechnology />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={event.name}
-                        secondary={event.endsAt}
-                      />
-                    </ListItem>
-                  )
-                )}
-              </List>
-            </div>
-          </Grid>
-        </Grid>
+        <div style={{ width: '400px' }}>
+          <Typography variant="h6" className={classes.title}>
+            Current Events Happening
+          </Typography>
+          <div className={classes.demo}>
+            <List>
+              {this.state.events[this.state.date].currEvents.map(
+                (event, index) => (
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar>
+                        <GrTechnology />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={event.name}
+                      secondary={event.endsAt}
+                    />
+                  </ListItem>
+                )
+              )}
+            </List>
+          </div>
+        </div>
       </div>
     );
   }

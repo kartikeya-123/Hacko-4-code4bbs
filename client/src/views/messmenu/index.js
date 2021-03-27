@@ -90,6 +90,7 @@ class MessMenu extends Component {
                 index == 0 ? 'rgb(62, 149, 242,0.2)' : 'rgb(18, 60, 105,0.1)';
               return (
                 <Card
+                  key={el.index}
                   style={{
                     width: '300px',
                     margin: '10px 20px 20px 20px',
