@@ -27,7 +27,7 @@ const menu = [
     dinner: ['Veg kolhapuri', 'Plain Dal', 'Curd', 'Roti', 'Sambar'],
   },
   {
-    day: 'Wenesday',
+    day: 'Wednesday',
     index: 3,
     breakfast: ['Dosa', 'Sambar', 'Coconut chutney', 'Sweet corn'],
     lunch: ['Jeera rice', 'Dal tadka', 'Dry Bhindi', 'Masala papad', 'Sambar'],
@@ -60,8 +60,18 @@ const menu = [
   },
 ];
 
+let newMenu = [];
+
 class MessMenu extends Component {
+  
   render() {
+    let today = new Date();
+    let day = today.getDay();
+
+    let i = 0;
+    for(i = 0; i<7; i++) {
+      newMenu[i] = menu[(day+i)%7]
+    }
     return (
       <>
         <Typography fontSize={24} style={{ padding: '20px 50px' }}>
@@ -76,7 +86,7 @@ class MessMenu extends Component {
               height: 'calc(100% - 500px)',
             }}
           >
-            {menu.map((el) => {
+            {newMenu.map((el) => {
               return (
                 <Card
                   style={{
