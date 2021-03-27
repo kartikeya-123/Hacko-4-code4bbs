@@ -39,7 +39,9 @@ exports.getAComplaint = catchAsync(async (req, res, next) => {
   const doc = await Complaint.findById(req.params.id);
 
   if (!doc) {
-    return next(new AppError("Complaint with the given id does not exist"));
+    return next(
+      new AppError("Complaint with the given id does not exist", 404)
+    );
   }
 
   res.status(200).json({
@@ -78,7 +80,9 @@ exports.addRemarkToComplaint = catchAsync(async (req, res, next) => {
   });
 
   if (!complaint) {
-    return next(new AppError("Complaint with the given id does not exist"));
+    return next(
+      new AppError("Complaint with the given id does not exist", 404)
+    );
   }
 
   res.status(200).json({
@@ -93,7 +97,9 @@ exports.closeComplaint = catchAsync(async (req, res, next) => {
   }).populate({ path: "student", select: "name email", model: "User" });
 
   if (!closedComplaint) {
-    return next(new AppError("Complaint with the given id does not exist"));
+    return next(
+      new AppError("Complaint with the given id does not exist", 404)
+    );
   }
 
   await sendEmail({
@@ -111,11 +117,28 @@ exports.closeComplaint = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteComplaint = catchAsync(async (req, res, next) => {
-  const complaint = await Complaint.findByIdAndDelete(req.params.id);
+  const complaint = await Complaint.findById(req.params.id).populate({
+    path: "student",
+    select: "name email",
+    model: "User",
+  });
 
   if (!complaint) {
-    return next(new AppError("Complaint with the given id does not exist"));
+    return next(
+      new AppError("Complaint with the given id does not exist", 404)
+    );
   }
+
+  if (String(req.user._id) !== String(complaint.student._id)) {
+    return next(
+      new AppError(
+        "Only the student who has lodged complaint can delete it",
+        401
+      )
+    );
+  }
+
+  await Complaint.findByIdAndDelete(req.params.id);
 
   res.status(204).json({
     status: "success",
