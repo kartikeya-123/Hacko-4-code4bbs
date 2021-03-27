@@ -109,6 +109,19 @@ exports.createEquipment = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.userIssueStatus = catchAsync(async (req, res, next) => {
+  const userIssuedEquipment = await Equipment.find({
+    issuedTo: req.user._id,
+  }).populate({
+    path: "type",
+    model: "Eqtype",
+  });
+
+  res.status(200).json({
+    issued: userIssuedEquipment,
+  });
+});
+
 exports.issueEquipment = catchAsync(async (req, res, next) => {
   // We will get id of the equipment that needs to be issued
   const equipment = await Equipment.findById(req.body.id);
@@ -151,8 +164,9 @@ exports.returnEquipment = catchAsync(async (req, res, next) => {
   const user = req.user;
 
   const equipment = await Equipment.findById(req.body.id);
+  console.log(JSON.stringify(equipment.issuedTo), JSON.stringify(user._id));
 
-  if (equipment.issuedTo !== user._id) {
+  if (JSON.stringify(equipment.issuedTo) !== JSON.stringify(user._id)) {
     return next(new AppError("Sorry you have not issued this equipment", 403));
   }
 
@@ -166,7 +180,7 @@ exports.returnEquipment = catchAsync(async (req, res, next) => {
 
   await equipment.save();
 
-  res.staus(200).json({
+  res.status(200).json({
     status: "success",
     message: "sucessfully returned",
   });
