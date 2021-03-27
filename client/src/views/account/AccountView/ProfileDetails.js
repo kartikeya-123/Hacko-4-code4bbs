@@ -41,7 +41,6 @@ const hostels = [
 ];
 
 const ProfileDetails = ({ user }) => {
-
   const [values, setValues] = useState({
     firstName: user.name,
     email: user.email,
@@ -65,29 +64,6 @@ const ProfileDetails = ({ user }) => {
         <Divider />
         <CardContent>
           <Grid container spacing={3}>
-            <Grid item md={6} xs={12}>
-              <TextField
-                fullWidth
-                label="First name"
-                name="firstName"
-                onChange={handleChange}
-                required
-                value={values.firstName}
-                variant="outlined"
-              />
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <TextField
-                fullWidth
-                label="Email Address"
-                name="email"
-                onChange={handleChange}
-                required
-                value={values.email}
-                variant="outlined"
-              />
-            </Grid>
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
@@ -144,8 +120,7 @@ const ProfileDetails = ({ user }) => {
                 required
                 value={values.rollNumber}
                 variant="outlined"
-              >
-              </TextField>
+              ></TextField>
             </Grid>
           </Grid>
         </CardContent>

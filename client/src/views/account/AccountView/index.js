@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet';
 import { Box, Container, Grid } from '@material-ui/core';
 import Profile from './Profile';
 import ProfileDetails from './ProfileDetails';
+import MyComplaints from './myComplaints';
 
 const Account = ({ user }) => {
   return (
@@ -23,6 +24,10 @@ const Account = ({ user }) => {
             </Grid>
             <Grid item lg={8} md={6} xs={12}>
               <ProfileDetails user={user} />
+            </Grid>
+
+            <Grid item lg={12} md={6} xs={12}>
+              <MyComplaints user={user} />
             </Grid>
           </Grid>
         </Container>
