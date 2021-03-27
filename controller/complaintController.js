@@ -18,6 +18,23 @@ exports.getAllComplaints = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getAllComplaintsByStudent = catchAsync(async (req, res, next) => {
+  const docs = await Complaint.find({
+    status: "pending",
+    student: req.user._id,
+  })
+    .populate({ path: "student", select: "name room", model: "User" })
+    .sort({ time: 1 });
+
+  res.status(200).json({
+    status: "success",
+    results: docs.length,
+    data: {
+      docs,
+    },
+  });
+});
+
 exports.getAComplaint = catchAsync(async (req, res, next) => {
   const doc = await Complaint.findById(req.params.id);
 

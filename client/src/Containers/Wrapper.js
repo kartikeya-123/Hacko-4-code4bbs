@@ -89,6 +89,7 @@ class Wrapper extends Component {
           }
         )
         .then((response) => {
+          console.log(response.data.user);
           this.setState({ user: response.data.user });
           this.setState({ isLoggedIn: true });
           const userData = {
@@ -98,7 +99,8 @@ class Wrapper extends Component {
             image: response.data.user.image,
             phoneNumber: response.data.user.phoneNumber,
             rollNumber:response.data.user.rollNumber,
-            room: response.data.user.room
+            room: response.data.user.room,
+            admissionYear: response.data.user.admissionYear
           };
           console.log(this.state.user)
           const cookies = this.props.cookies;

@@ -4,6 +4,7 @@ import Profile from './Profile';
 import ProfileDetails from './ProfileDetails';
 import axios from 'axios';
 import React, {Component} from 'react';
+import MyComplaints from './myComplaints';
 
 class Account extends Component {
   constructor(props) {
@@ -12,12 +13,7 @@ class Account extends Component {
       userDetails : null
     };
   }
-  componentDidMount() {
-    axios.get(`/api/v1/user/getUserWithEmail/${this.props.user.email}`).then(response => {
-      this.setState({userDetails : response.data.user})
-      console.log(this.state.userDetails);
-    })
-  }
+  
   render() {
     let userDetails = null;
     if(userDetails !== null) {
@@ -43,6 +39,9 @@ class Account extends Component {
               <Grid item lg={8} md={6} xs={12}>
                 <ProfileDetails user={this.props.user} userDetails = {userDetails} />
               </Grid>
+            <Grid item lg={12} md={6} xs={12}>
+              <MyComplaints user={this.props.user} />
+            </Grid>
             </Grid>
           </Container>
         </Box>
@@ -50,32 +49,5 @@ class Account extends Component {
     )
   }
 }
-// const Account = ({ user }) => {
-//   return (
-//     <>
-//       <Helmet>
-//         <title>Account</title>
-//       </Helmet>
-//       <Box
-//         sx={{
-//           backgroundColor: 'background.default',
-//           minHeight: '100%',
-//           py: 3,
-//         }}
-//       >
-//         <Container maxWidth="lg">
-//           <Grid container spacing={3}>
-//             <Grid item lg={4} md={6} xs={12}>
-//               <Profile user={user} />
-//             </Grid>
-//             <Grid item lg={8} md={6} xs={12}>
-//               <ProfileDetails user={user} />
-//             </Grid>
-//           </Grid>
-//         </Container>
-//       </Box>
-//     </>
-//   );
-// };
 
 export default Account;

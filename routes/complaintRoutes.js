@@ -8,6 +8,13 @@ router.use(authLogic.verifyJwtToken);
 //Get All Complaints
 router.get("/", complaintController.getAllComplaints);
 
+//Get all Complaints by a particular Student
+router.get(
+  "/myComplaints",
+  authLogic.loggedInUser,
+  complaintController.getAllComplaintsByStudent
+);
+
 //Get a single Complaint
 router.get("/:id", complaintController.getAComplaint);
 

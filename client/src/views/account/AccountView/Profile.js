@@ -11,14 +11,6 @@ import {
 } from '@material-ui/core';
 import React, {Component} from 'react';
 
-// const user = {
-//   avatar: '/static/images/avatars/avatar_6.png',
-//   city: 'Los Angeles',
-//   country: 'USA',
-//   jobTitle: 'Senior Developer',
-//   name: 'Katarina Smith',
-//   timezone: 'GTM-7'
-// };
 
 class Profile extends Component {
   constructor(props) {
@@ -49,8 +41,6 @@ class Profile extends Component {
             </Typography>
             <Typography color="textSecondary" variant="body1">
               {`${this.props.user.hostel || 'Hostel 1'} || ${this.props.user.room || 'A100'}`}
-              {/* <br/>
-              {`${user.admissionYear || 'Please enter your roll Number'}`} */}
             </Typography>
             <Typography color="textSecondary" variant="body1">
               {`${this.props.user.admissionYear || 'Please enter your Roll Number'}`}
