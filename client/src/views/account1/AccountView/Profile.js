@@ -276,7 +276,7 @@ const Profile = ({ profile, className, ...rest }) => {
                 ) : (
                   <Chip
                     label="No contact info available, update profile to see"
-                    style={{ marginTop: 10 }}
+                    style={{ margin: '10px auto 0px auto' }}
                   />
                 )}
               </Grid>
@@ -304,6 +304,7 @@ const Profile = ({ profile, className, ...rest }) => {
                               <TableRow className={classes.cell}>
                                 <TableCell style={{ borderBottom: 0 }}>
                                   {group.tags.map((tag, index) => {
+                                    console.log(tag);
                                     return (
                                       <Chip
                                         size="small"

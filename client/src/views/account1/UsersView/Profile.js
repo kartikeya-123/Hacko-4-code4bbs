@@ -13,7 +13,7 @@ import {
   Typography,
   makeStyles,
   Tooltip,
-  IconButton
+  IconButton,
 } from '@material-ui/core';
 
 import Table from '@material-ui/core/Table';
@@ -34,72 +34,72 @@ const useStyles = makeStyles(() => ({
   button: {
     fontSize: 17,
     right: 0,
-    position: 'relative'
+    position: 'relative',
   },
   text: {
-    fontSize: 17
+    fontSize: 17,
   },
   avatar: {
     height: 100,
     width: 100,
-    margin: 12
+    margin: 12,
   },
   table: {
     minWidth: 100,
     fontFamily: 'Roboto',
-    overflowY: 'hidden'
+    overflowY: 'hidden',
   },
   row: {
-    width: 300
+    width: 300,
   },
   cellB: {
     fontWeight: 500,
     border: 0,
     fontSize: 18,
     paddingTop: 8,
-    paddingBottom: 8
+    paddingBottom: 8,
   },
   cellC: {
     border: 0,
     fontSize: 18,
     paddingTop: 8,
     paddingBottom: 8,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   cellBA: {
     fontWeight: 500,
     border: 0,
-    fontSize: 18
+    fontSize: 18,
   },
   cell: {
     border: 0,
     fontSize: 18,
     paddingTop: 8,
     paddingBottom: 8,
-    display: 'flex'
+    display: 'flex',
   },
   icons: {
     height: 50,
-    width: 50
+    width: 50,
   },
   links: {
     alignItems: 'center',
-    alignContent: 'center'
+    alignContent: 'center',
   },
   align: {
     marginTop: 'auto',
-    marginBottom: 'auto'
+    marginBottom: 'auto',
   },
   right: {
-    textAlign: 'right'
+    textAlign: 'right',
   },
   chip: {
     margin: 5,
-    cursor: 'default'
-  }
+    cursor: 'default',
+  },
 }));
 
-const getLogo = name => {
+const getLogo = (name) => {
   switch (name) {
     case 'LinkedIn':
       return 'https://img.icons8.com/fluent/48/000000/linkedin.png';
@@ -136,7 +136,7 @@ const Profile = ({
   const rows = [
     createData('Branch', profile.branch),
     createData('Admission Year', profile.admissionYear || 'Update'),
-    createData('Graduation Year', profile.graduationYear || 'Update')
+    createData('Graduation Year', profile.graduationYear || 'Update'),
   ];
 
   let tagMap = {};
@@ -157,7 +157,7 @@ const Profile = ({
         <IconButton aria-label="verified">
           <CheckCircleIcon color="primary" />
         </IconButton>
-      </Tooltip>
+      </Tooltip>,
     ];
   }
 
@@ -204,7 +204,7 @@ const Profile = ({
                     ? [
                         <>
                           <b>Bio :</b> {profile.bio}
-                        </>
+                        </>,
                       ]
                     : null}
                 </Typography>
@@ -214,7 +214,7 @@ const Profile = ({
               <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                   <TableBody>
-                    {rows.map(row => (
+                    {rows.map((row) => (
                       <TableRow key={row.name}>
                         <TableCell
                           component="th"
@@ -321,7 +321,7 @@ const Profile = ({
                                     );
                                   })}
                                 </TableCell>
-                              </TableRow>
+                              </TableRow>,
                             ];
                           })
                       ) : (
@@ -344,7 +344,7 @@ const Profile = ({
 };
 
 Profile.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default Profile;
