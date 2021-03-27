@@ -71,6 +71,7 @@ class complaintRegister extends Component {
                   <TableCell>Category</TableCell>
                   <TableCell>Subject</TableCell>
                   <TableCell>Description</TableCell>
+                  <TableCell>Available Time</TableCell>
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
@@ -83,6 +84,7 @@ class complaintRegister extends Component {
                     <TableCell>{complaint.category.toUpperCase()}</TableCell>
                     <TableCell>{complaint.subject}</TableCell>
                     <TableCell>{complaint.description}</TableCell>
+                    <TableCell>{complaint.availableTime}</TableCell>
                     <TableCell>
                       {' '}
                       <Button

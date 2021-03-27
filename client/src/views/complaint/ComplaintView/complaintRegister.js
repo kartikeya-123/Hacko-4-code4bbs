@@ -1,14 +1,12 @@
 import moment from 'moment';
 import React, { Component } from 'react';
 import axios from 'axios';
-import { v4 as uuid } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
   Button,
   Card,
   CardHeader,
-  Chip,
   Divider,
   Table,
   TableBody,
@@ -80,7 +78,10 @@ class complaintRegister extends Component {
                   <TableCell>Room Number</TableCell>
                   <TableCell>Phone Number</TableCell>
                   {this.props.admin === 'true' ? (
-                    <TableCell>Resolve</TableCell>
+                    <>
+                      <TableCell>Available Time</TableCell>
+                      <TableCell>Resolve</TableCell>
+                    </>
                   ) : null}
                 </TableRow>
               </TableHead>
@@ -96,6 +97,11 @@ class complaintRegister extends Component {
                     <TableCell>{complaint.student.name}</TableCell>
                     <TableCell>{complaint.student.room}</TableCell>
                     <TableCell>{complaint.phone}</TableCell>
+
+                    {this.props.admin === 'true' ? (
+                      <TableCell>{complaint.availableTime}</TableCell>
+                    ) : null}
+
                     {this.props.admin === 'true' ? (
                       <TableCell>
                         <Button
