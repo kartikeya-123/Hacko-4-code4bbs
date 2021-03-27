@@ -116,18 +116,57 @@ exports.issueEquipment = catchAsync(async (req, res, next) => {
     return next(new AppError("No equipment", 403));
   }
 
+  const userIssuedEquipment = await Equipment.find({
+    issuedTo: req.user._id,
+  }).populate({
+    path: "type",
+    model: "Eqtype",
+  });
+
+  if (userIssuedEquipment) {
+    res.status(200).json({
+      status: "Fail",
+      userIssuedEquipment,
+    });
+  } else {
+    const user = req.user;
+    equipment.issuedTo = user._id;
+    equipment.issuedDate = new Date().toLocaleString();
+    equipment.status = "Issued";
+
+    const equipmentType = await EqType.findByIdAndUpdate(equipment.type, {
+      $inc: { issued: 1 },
+    });
+
+    await equipment.save();
+    res.status(200).json({
+      status: "success",
+      data: equipment,
+    });
+  }
+});
+
+exports.returnEquipment = catchAsync(async (req, res, next) => {
   const user = req.user;
-  equipment.issuedTo = user._id;
-  equipment.issuedDate = new Date().toLocaleString();
-  equipment.status = "Issued";
+
+  const equipment = await Equipment.findById(req.body.id);
+
+  if (equipment.issuedTo !== user._id) {
+    return next(new AppError("Sorry you have not issued this equipment", 403));
+  }
+
+  equipment.status = "Available";
+  equipment.issuedTo = null;
+  equipment.issuedDate = null;
 
   const equipmentType = await EqType.findByIdAndUpdate(equipment.type, {
-    $inc: { issued: 1 },
+    $inc: { issued: -1 },
   });
 
   await equipment.save();
-  res.status(200).json({
+
+  res.staus(200).json({
     status: "success",
-    data: equipment,
+    message: "sucessfully returned",
   });
 });
