@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import { React, Component } from 'react';
 import { Helmet } from 'react-helmet';
-import { Box, Container, Grid, Pagination } from '@material-ui/core';
+import {
+  Box,
+  Container,
+  Grid,
+  Pagination,
+  touchRippleClasses,
+} from '@material-ui/core';
 import axios from 'axios';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
@@ -25,6 +31,9 @@ class EquipmentView extends Component {
     availableEquipments: [],
     issuedEquipments: [],
     isLoading: true,
+    user: null,
+    userIssued: false,
+    issues: false,
   };
 
   constructor() {
@@ -33,17 +42,66 @@ class EquipmentView extends Component {
   }
 
   getEquipments = () => {
-    axios.get(`/api/v1/sport/eqtype/${this.id}`).then((res) => {
-      console.log(res.data);
-      this.setState({
-        availableEquipments: res.data.availableEquipments,
-        issuedEquipments: res.data.issuedEquipments,
-        isLoading: false,
-      });
-    });
+    axios
+      .get(`/api/v1/sport/eqtype/${this.id}`)
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          availableEquipments: res.data.availableEquipments,
+          issuedEquipments: res.data.issuedEquipments,
+          isLoading: false,
+        });
+        if (res.data.issuedEquipments) {
+          this.setState({ issues: true });
+        }
+        for (let x of res.data.issuedEquipments) {
+          if (this.state.user.email == x.issuedTo.email) {
+            this.setState({ userIssued: true });
+            break;
+          }
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
+  issuedEquipment = (equipId) => {
+    const data = {
+      id: equipId,
+    };
+    axios
+      .patch('/api/v1/sport/issue', data, { withCredentials: true })
+      .then((response) => {
+        const status = response.data.status;
+        console.log(status);
+        if (status == 'Fail') {
+          const issuedEquipment = response.data.userIssuedEquipment;
+          const name = issuedEquipment[0].id;
+          const message = `You have already issued a equipment of id ${name}. Please return the equipment to issue a new equipment`;
+          alert(message);
+        } else {
+          this.getEquipments();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  returnEquipment = (equipId) => {
+    const data = {
+      id: equipId,
+    };
+    axios
+      .patch('/api/v1/sport/return', data, { withCredentials: true })
+      .then((response) => {
+        this.getEquipments();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   componentDidMount = () => {
+    // this.setState({ user: this.props.user });
     this.getEquipments();
   };
 
@@ -52,7 +110,9 @@ class EquipmentView extends Component {
       <>
         {!this.state.isLoading ? (
           <div>
-            <Card style={{ marginLeft: '30px', width: '500px' }}>
+            <Card
+              style={{ marginLeft: '30px', marginTop: '20px', width: '500px' }}
+            >
               <CardHeader title="Available Equipments" />
               <Divider />
               <PerfectScrollbar>
@@ -88,7 +148,11 @@ class EquipmentView extends Component {
                             />
                           </TableCell>
                           <TableCell>
-                            <Button variant="contained" color="primary">
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={() => this.issuedEquipment(eq._id)}
+                            >
                               {' '}
                               Issue equipment
                             </Button>
@@ -102,8 +166,16 @@ class EquipmentView extends Component {
             </Card>
             <br></br>
             <br></br>
+            {/* {
+              this.state.userIssued ? 
+
+            } */}
             <Card
-              style={{ marginLeft: '30px', marginBottom: '15px', width: '80%' }}
+              style={{
+                marginLeft: '30px',
+                marginBottom: '40px',
+                width: '80%',
+              }}
             >
               <CardHeader title="Issued Equipments" />
               <Divider />
@@ -127,22 +199,24 @@ class EquipmentView extends Component {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {this.state.issuedEquipments.map((eq) => (
-                        <TableRow hover key={eq.id}>
-                          <TableCell>{eq.id}</TableCell>
-                          <TableCell>{eq.issuedTo.name}</TableCell>
-                          <TableCell>
-                            {eq.issuedTo.roll || '19EE01003'}
-                          </TableCell>
-                          <TableCell>{eq.issuedTo.room || 'A120'}</TableCell>
-                          <TableCell>{eq.issuedDate}</TableCell>
-                        </TableRow>
-                      ))}
+                      {this.state.issues &&
+                        this.state.issuedEquipments.map((eq) => (
+                          <TableRow hover key={eq.id}>
+                            <TableCell>{eq.id}</TableCell>
+                            <TableCell>{eq.issuedTo.name}</TableCell>
+                            <TableCell>
+                              {eq.issuedTo.roll || '19EE01003'}
+                            </TableCell>
+                            <TableCell>{eq.issuedTo.room || 'A120'}</TableCell>
+                            <TableCell>{eq.issuedDate}</TableCell>
+                          </TableRow>
+                        ))}
                     </TableBody>
                   </Table>
                 </Box>
               </PerfectScrollbar>
             </Card>
+            )
           </div>
         ) : null}
       </>

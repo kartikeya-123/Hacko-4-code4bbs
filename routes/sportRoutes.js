@@ -16,5 +16,10 @@ router.patch(
   authLogic.loggedInUser,
   equipmentController.issueEquipment
 );
-
+router.patch(
+  "/return",
+  authLogic.verifyJwtToken,
+  authLogic.loggedInUser,
+  equipmentController.returnEquipment
+);
 module.exports = router;
