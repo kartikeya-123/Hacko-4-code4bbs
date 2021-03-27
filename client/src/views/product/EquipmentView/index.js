@@ -24,7 +24,8 @@ import {
   TableSortLabel,
   Tooltip,
 } from '@material-ui/core';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import ArrowDownIcon from '@material-ui/icons/ArrowDropDown';
+import AddEquipment from './addEquipment';
 
 class EquipmentView extends Component {
   state = {
@@ -34,6 +35,7 @@ class EquipmentView extends Component {
     user: null,
     userIssued: false,
     issues: false,
+    addMore: false,
   };
 
   constructor() {
@@ -122,13 +124,6 @@ class EquipmentView extends Component {
                       <TableRow>
                         <TableCell>Equipment ID</TableCell>
                         <TableCell>Status</TableCell>
-                        {/* <TableCell sortDirection="desc">
-                      <Tooltip enterDelay={300} title="Sort">
-                        <TableSortLabel active direction="desc">
-                          Date
-                        </TableSortLabel>
-                      </Tooltip>
-                    </TableCell> */}
                         <TableCell>Issue</TableCell>
                       </TableRow>
                     </TableHead>
@@ -136,10 +131,6 @@ class EquipmentView extends Component {
                       {this.state.availableEquipments.map((eq) => (
                         <TableRow hover key={eq.id}>
                           <TableCell>{eq.id}</TableCell>
-
-                          {/* <TableCell>
-                  {moment(eq.createdAt).format('DD/MM/YYYY')}
-                </TableCell> */}
                           <TableCell>
                             <Chip
                               color="primary"
@@ -163,13 +154,33 @@ class EquipmentView extends Component {
                   </Table>
                 </Box>
               </PerfectScrollbar>
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  // justifyContent: 'flex-end',
+                  p: 2,
+                }}
+              >
+                {!this.state.addMore ? (
+                  <Button
+                    color="primary"
+                    endIcon={<ArrowDownIcon />}
+                    size="small"
+                    variant="text"
+                    onClick={() => {
+                      this.setState({ addMore: true });
+                    }}
+                  >
+                    Add More
+                  </Button>
+                ) : (
+                  <AddEquipment />
+                )}
+              </Box>
             </Card>
             <br></br>
             <br></br>
-            {/* {
-              this.state.userIssued ? 
-
-            } */}
             <Card
               style={{
                 marginLeft: '30px',

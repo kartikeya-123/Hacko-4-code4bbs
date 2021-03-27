@@ -6,7 +6,13 @@ const authLogic = require("./../model/businessLogic/authLogic");
 
 router.get("/eqtype", equipmentController.getAllEquimentTypes);
 router.get("/eqtype/:id", equipmentController.getAllEquiments);
-router.post("/eqtype", equipmentController.createEqType);
+router.post(
+  "/eqtype",
+  authLogic.verifyJwtToken,
+  authLogic.restrictTo("admin"),
+  authLogic.loggedInUser,
+  equipmentController.createEqType
+);
 
 router.get(
   "/status",
@@ -16,7 +22,13 @@ router.get(
 );
 
 router.get("/eq/:id", equipmentController.getEquipment);
-router.post("/eq/", equipmentController.createEquipment);
+router.post(
+  "/eq",
+  authLogic.verifyJwtToken,
+  authLogic.restrictTo("admin"),
+  authLogic.loggedInUser,
+  equipmentController.createEquipment
+);
 router.patch(
   "/issue",
   authLogic.verifyJwtToken,

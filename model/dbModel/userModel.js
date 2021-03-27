@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ["user", "admin", "superAdmin"],
+      enum: ["user", "admin", "superAdmin", "respresentative"],
       default: "user",
     },
     image: {
@@ -44,6 +44,9 @@ const userSchema = new mongoose.Schema(
     program: {
       type: String,
       default: "Not Specified",
+    },
+    phoneNumber: {
+      type : String
     },
     tags: [
       {
