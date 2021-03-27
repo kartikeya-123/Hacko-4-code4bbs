@@ -12,6 +12,7 @@ const globalErrorHandler = require("./controller/errorController");
 
 const userRouter = require("./routes/userRoutes");
 const authRouter = require("./routes/authRoutes");
+const searchRouter = require("./routes/searchRoutes");
 const sportRouter = require("./routes/sportRoutes");
 const complaintRouter = require("./routes/complaintRoutes");
 const messRouter = require("./routes/menuRoutes");
@@ -58,6 +59,8 @@ app.use("/api/v1/user", userRouter);
 
 //Menu Routes
 app.use("/api/v1/mess", messRouter);
+//Search Endpoints
+app.use("/api/v1/search", searchRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

@@ -1,7 +1,8 @@
 import { Navigate } from 'react-router-dom';
 import DashboardLayout from './layouts/DashboardLayout';
 import MainLayout from './layouts/MainLayout';
-import AccountView from './views/account/AccountView';
+import AccountView from './views/account1/AccountView';
+import UpdateView from './views/account1/UpdateView';
 import CustomerListView from './views/customer/CustomerListView';
 import DashboardView from './views/reports/DashboardView';
 import LoginView from './views/auth/LoginView';
@@ -23,6 +24,7 @@ const setUserAsProps = (user, cookies) => {
       element: <DashboardLayout user={user} cookies={cookies} />,
       children: [
         { path: 'account', element: <AccountView user={user} /> },
+        { path: 'update', element: <UpdateView user={user} /> },
         { path: 'customers', element: <CustomerListView user={user} /> },
         { path: 'dashboard', element: <DashboardView user={user} /> },
         { path: 'mess-menu', element: <MessMenu user={user} /> },

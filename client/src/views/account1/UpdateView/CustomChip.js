@@ -6,24 +6,27 @@ const CustomChip = (props) => {
   let toggle = () => {
     if (variant === 'outlined') {
       setVariant('default');
-      props.addToSelected(props.tag._id);
+      props.addToSelected(props.tag);
     } else {
       setVariant('outlined');
-      props.removeFromSelected(props.tag._id);
+      props.removeFromSelected(props.tag);
     }
   };
 
   return (
-    <Chip
-      label={props.tag.name}
-      className={props.classes.chip}
-      size="small"
-      clickable
-      onClick={toggle}
-      variant={variant}
-      style={{ margin: '2px' }}
-      color="primary"
-    />
+    <>
+      <Chip
+        label={props.tag.name}
+        className={props.classes.chip}
+        size="small"
+        clickable
+        onClick={toggle}
+        variant={variant}
+        style={{ margin: '2px' }}
+        color="primary"
+      />
+      &nbsp;
+    </>
   );
 };
 
