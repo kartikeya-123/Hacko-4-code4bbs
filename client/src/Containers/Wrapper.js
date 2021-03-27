@@ -89,6 +89,7 @@ class Wrapper extends Component {
           }
         )
         .then((response) => {
+          console.log(response.data.user);
           this.setState({ user: response.data.user });
           this.setState({ isLoggedIn: true });
           const userData = {

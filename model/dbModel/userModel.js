@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-
+const Tag = require("./tagModel");
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -45,6 +45,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "Not Specified",
     },
+    tags: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Tag",
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
