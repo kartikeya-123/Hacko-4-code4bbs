@@ -9,6 +9,9 @@ import {
   Divider,
   Grid,
   TextField,
+  Checkbox,
+  FormControlLabel,
+  FormControl,
 } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
 
@@ -39,8 +42,11 @@ const ProfileDetails = (props) => {
     description: '',
     phone: '',
     category: '',
+    availableTime: '',
     hostel: 'hostel1',
   });
+
+  const [available, setAvailable] = useState(false);
 
   let navigate = useNavigate();
 
@@ -112,7 +118,7 @@ const ProfileDetails = (props) => {
               </TextField>
             </Grid>
 
-            <Grid item md={6} xs={12}>
+            <Grid item md={12} xs={12}>
               <TextField
                 fullWidth
                 label="Subject"
@@ -122,6 +128,39 @@ const ProfileDetails = (props) => {
                 value={values.subject}
                 variant="outlined"
               />
+            </Grid>
+
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                required
+                disabled={available}
+                label="Availabe Time"
+                name="availableTime"
+                onChange={handleChange}
+                value={values.availableTime}
+                variant="outlined"
+              />
+              <FormControl>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      color="primary"
+                      size="small"
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setAvailable(true);
+                          setValues({ ...values, availableTime: 'available' });
+                        } else {
+                          setAvailable(false);
+                        }
+                      }}
+                    />
+                  }
+                  label="Anytime Availabe"
+                  labelPlacement="right"
+                />
+              </FormControl>
             </Grid>
 
             <Grid item md={6} xs={12}>
@@ -170,7 +209,8 @@ const ProfileDetails = (props) => {
                 values.description &&
                 values.phone &&
                 values.category &&
-                values.hostel
+                values.hostel &&
+                values.availableTime
               )
             }
             onClick={(e) => {

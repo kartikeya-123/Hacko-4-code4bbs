@@ -40,6 +40,10 @@ const complaintSchema = new mongoose.Schema({
   remark: {
     type: String,
   },
+  availableTime: {
+    type: String,
+    default: "available",
+  },
 });
 
 const Complaint = mongoose.model("Complaint", complaintSchema);

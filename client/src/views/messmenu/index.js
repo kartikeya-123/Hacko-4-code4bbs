@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 import {
   Card,
   Typography,
@@ -40,6 +41,9 @@ class MessMenu extends Component {
     }
     return (
       <>
+        <Helmet>
+          <title>Mess Menu</title>
+        </Helmet>
         <Typography fontSize={24} style={{ padding: '20px 50px' }}>
           Hostel 1
         </Typography>

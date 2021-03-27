@@ -51,7 +51,14 @@ exports.getAComplaint = catchAsync(async (req, res, next) => {
 });
 
 exports.createComplaint = catchAsync(async (req, res, next) => {
-  const { subject, description, category, hostel, phone } = req.body;
+  const {
+    subject,
+    description,
+    category,
+    hostel,
+    phone,
+    availableTime,
+  } = req.body;
   const student = req.user;
   const createdAt = Date.now();
 
@@ -63,6 +70,7 @@ exports.createComplaint = catchAsync(async (req, res, next) => {
     category,
     hostel,
     phone,
+    availableTime,
   });
 
   res.status(201).json({
