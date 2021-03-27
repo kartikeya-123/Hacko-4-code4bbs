@@ -10,20 +10,20 @@ import {
   TextField,
 } from '@material-ui/core';
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama',
-  },
-  {
-    value: 'new-york',
-    label: 'New York',
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco',
-  },
-];
+// const states = [
+//   {
+//     value: 'alabama',
+//     label: 'Alabama',
+//   },
+//   {
+//     value: 'new-york',
+//     label: 'New York',
+//   },
+//   {
+//     value: 'san-francisco',
+//     label: 'San Francisco',
+//   },
+// ];
 
 const hostels = [
   {
@@ -41,14 +41,16 @@ const hostels = [
 ];
 
 const ProfileDetails = ({ user }) => {
+
   const [values, setValues] = useState({
     firstName: user.name,
     email: user.email,
-    phone: user.phone || 'Not Specified',
-    hostel: user.hostel || 'Not Specified',
-    room: user.room || 'Not Specified',
+    // phoneNumber: user.phoneNumber || 'Not Specified',
+    // hostel: user.hostel || 'Not Specified',
+    // roomNumber: user.room || 'Not Specified',
+    // rollNumber: user.rollNumber || 'Not Specified'
   });
-
+  console.log(user);
   const handleChange = (event) => {
     setValues({
       ...values,
@@ -93,7 +95,7 @@ const ProfileDetails = ({ user }) => {
                 name="phone"
                 onChange={handleChange}
                 type="number"
-                value={values.phone}
+                value={values.phoneNumber}
                 variant="outlined"
               />
             </Grid>
@@ -131,6 +133,18 @@ const ProfileDetails = ({ user }) => {
                     {option.label}
                   </option>
                 ))} */}
+              </TextField>
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                label="Roll Number"
+                name="rollNumber"
+                onChange={handleChange}
+                required
+                value={values.rollNumber}
+                variant="outlined"
+              >
               </TextField>
             </Grid>
           </Grid>
