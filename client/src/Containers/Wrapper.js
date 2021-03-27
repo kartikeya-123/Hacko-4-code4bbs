@@ -100,7 +100,8 @@ class Wrapper extends Component {
             phoneNumber: response.data.user.phoneNumber,
             rollNumber:response.data.user.rollNumber,
             room: response.data.user.room,
-            admissionYear: response.data.user.admissionYear
+            admissionYear: response.data.user.admissionYear,
+            hostel: response.data.user.hostel
           };
           console.log(this.state.user)
           const cookies = this.props.cookies;
