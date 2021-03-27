@@ -7,9 +7,11 @@ const xss = require("xss-clean");
 const path = require("path");
 const middleware = require("./utils/middleware");
 
-const clientEndpoints = [];
+const clientEndpoints = ["login"];
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controller/errorController");
+
+const authRouter = require("./routes/authRoutes");
 
 const app = express();
 
@@ -36,6 +38,9 @@ app.get("/:clientEndpoint", (req, res, next) => {
     next();
   }
 });
+
+//Authentication Endpoint
+app.use("/api/v1/auth", authRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
