@@ -15,7 +15,40 @@ const useStyles = (theme) => ({
 class CustomerListView extends Component {
   state = {
     users: [],
-    tags: [],
+    tags: [
+      {
+        group: 'Tech',
+        name: 'React',
+      },
+      {
+        group: 'Tech',
+        name: 'Node',
+      },
+      {
+        group: 'Tech',
+        name: 'Flutter',
+      },
+      {
+        group: 'Tech',
+        name: 'Angular',
+      },
+      {
+        group: 'Positon of Responsibility',
+        name: 'Mess Secretary',
+      },
+      {
+        group: 'Positon of Responsibility',
+        name: 'Sports Secretary',
+      },
+      {
+        group: 'Positon of Responsibility',
+        name: 'Cultural Secretary',
+      },
+      {
+        group: 'Positon of Responsibility',
+        name: 'Tech Secretary',
+      },
+    ],
     isLoadingUsers: false,
     isLoadingTags: false,
   };

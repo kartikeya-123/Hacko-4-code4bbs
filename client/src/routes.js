@@ -12,6 +12,7 @@ import SettingsView from './views/settings/SettingsView';
 import ComplaintView from './views/complaint/ComplaintView';
 import NewComplaintView from './views/complaint/NewComplaintView';
 import EquipmentView from './views/product/EquipmentView';
+import Calendar from './views/Calendar';
 
 const setUserAsProps = (user, cookies) => {
   return [
@@ -25,6 +26,7 @@ const setUserAsProps = (user, cookies) => {
         { path: 'sports', element: <ProductListView user={user} /> },
         { path: 'sports/:id', element: <EquipmentView user={user} /> },
         { path: 'settings', element: <SettingsView /> },
+        { path: 'calendar', element: <Calendar /> },
         { path: 'complaints', element: <ComplaintView user={user} /> },
         { path: 'complaints/add', element: <NewComplaintView user={user} /> },
         { path: '*', element: <Navigate to="/404" /> },

@@ -48,7 +48,11 @@ const items = [
     icon: ToolBarIcon,
     title: 'Complaints',
   },
-
+  {
+    href: '/app/calendar',
+    icon: ToolBarIcon,
+    title: 'Calendar',
+  },
   {
     href: '/app/account',
     icon: UserIcon,
