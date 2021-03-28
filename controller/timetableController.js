@@ -15,12 +15,12 @@ exports.getTimeTable = catchAsync(async (req, res, next) => {
     year: req.user.admissionYear,
     branch: req.user.branch,
   }).populate({
-    path: "course",
+    path: "courseList",
     model: "Course",
   });
 
   res.status(201).json({
     status: "sucesss",
-    timeTable,
+    courses: timeTable,
   });
 });
