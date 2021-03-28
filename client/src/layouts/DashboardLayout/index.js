@@ -39,7 +39,10 @@ const DashboardLayout = ({ user, cookies }) => {
 
   return (
     <div className={classes.root}>
-      <TopBar onMobileNavOpen={() => setMobileNavOpen(true)} />
+      <TopBar
+        onMobileNavOpen={() => setMobileNavOpen(true)}
+        cookies={cookies}
+      />
       <NavBar
         onMobileClose={() => setMobileNavOpen(false)}
         openMobile={isMobileNavOpen}
