@@ -72,6 +72,16 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
+    endorse: {
+      type: Number,
+      default: 0,
+    },
+    endorsers: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },

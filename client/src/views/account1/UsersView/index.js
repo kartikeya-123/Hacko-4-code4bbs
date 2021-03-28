@@ -17,6 +17,7 @@ class Account extends Component {
   state = {
     user: [],
     isLoading: true,
+    currentUser: [],
   };
   getProfile = () => {
     let url = window.location.pathname.split('/');
@@ -35,7 +36,20 @@ class Account extends Component {
       });
   };
   componentDidMount = () => {
-    this.getProfile();
+    axios
+      .get('/api/v1/user/profile', {
+        withCredentials: true,
+      })
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          currentUser: response.data.data.user,
+        });
+        this.getProfile();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -49,7 +63,7 @@ class Account extends Component {
                 <Grid item lg={12} md={10} xs={12}>
                   <Profile
                     profile={this.state.user}
-                    currentUser={this.props.user}
+                    currentUser={this.state.currentUser}
                     updateProfile={this.getProfile}
                   />
                 </Grid>

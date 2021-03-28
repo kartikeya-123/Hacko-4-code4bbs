@@ -153,26 +153,26 @@ const Profile = ({
     tagMapArray.push({ name: group, tags: tagMap[group] });
   }
   let verifyIcon;
-  if (profile.verifyStatus) {
-    verifyIcon = [
-      <Tooltip title="Verified">
-        <IconButton aria-label="verified">
-          <CheckCircleIcon color="primary" />
-        </IconButton>
-      </Tooltip>,
-    ];
-  }
+  // if (profile.verifyStatus) {
+  //   verifyIcon = [
+  //     <Tooltip title="Verified">
+  //       <IconButton aria-label="verified">
+  //         <CheckCircleIcon color="primary" />
+  //       </IconButton>
+  //     </Tooltip>,
+  //   ];
+  // }
 
   return (
     <div>
       <Grid container className={classes.align} spacing={1} justify="center">
         <Grid item lg={5} md={10} xs={12}>
           <Card className={clsx(classes.root, className)} {...rest}>
-            {/* <CustomizedMenu
+            <CustomizedMenu
               user={profile}
               currentUser={currentUser}
               updateProfile={updateProfile}
-            /> */}
+            />
             <CardContent>
               <Box
                 alignItems="center"
