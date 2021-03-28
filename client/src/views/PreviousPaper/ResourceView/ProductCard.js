@@ -49,22 +49,16 @@ const ProductCard = ({ product, ...rest }) => {
       <Box sx={{ flexGrow: 1 }} />
       <Divider />
       <Box sx={{ p: 2 }}>
-        <Grid container spacing={2} sx={{ justifyContent: 'space-between' }}>
-          <Grid
-            item
-            sx={{
-              alignItems: 'center',
-              display: 'flex',
-            }}
-          >
-            {product.papers &&
-              product.papers.map((paper, ind) => (
-                <Link href={paper.link} target="_blank">
+        {product.papers &&
+          product.papers.map((paper, ind) => (
+            <div>
+              <Link href={paper.link} target="_blank">
+                <Typography>
                   {paper.name} || {paper.year || '2020'}
-                </Link>
-              ))}
-          </Grid>
-        </Grid>
+                </Typography>
+              </Link>
+            </div>
+          ))}
       </Box>
     </Card>
   );

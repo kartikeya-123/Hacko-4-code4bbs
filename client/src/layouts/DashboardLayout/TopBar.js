@@ -14,10 +14,24 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Logo from '../../components/Logo';
+import axios from 'axios';
 
-const TopBar = ({ onMobileNavOpen, ...rest }) => {
+const TopBar = ({ onMobileNavOpen, cookies, ...rest }) => {
   const [notifications] = useState([]);
-
+  const logout = (cookies) => {
+    axios
+      .post('/api/v1/auth/logout', {
+        withCredentials: true,
+      })
+      .then((response) => {
+        cookies.cookies.remove('isLoggedIn', { path: '/' });
+        cookies.cookies.remove('userData', { path: '/' });
+        window.location.href = '/';
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <AppBar elevation={0} {...rest} style={{ backgroundColor: '#123C69' }}>
       <Toolbar>
@@ -30,20 +44,18 @@ const TopBar = ({ onMobileNavOpen, ...rest }) => {
           </Typography>
         </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
-        <Hidden mdDown>
-          <IconButton color="inherit">
-            <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
-            >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton color="inherit">
-            <InputIcon />
-          </IconButton>
-        </Hidden>
+        <IconButton color="inherit">
+          <Badge
+            badgeContent={notifications.length}
+            color="primary"
+            variant="dot"
+          >
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <IconButton color="inherit" onClick={() => logout({ cookies })}>
+          <InputIcon />
+        </IconButton>
         <Hidden lgUp>
           <IconButton color="inherit" onClick={onMobileNavOpen}>
             <MenuIcon />

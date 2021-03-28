@@ -27,6 +27,7 @@ import axios from 'axios';
 
 import FastfoodOutlinedIcon from '@material-ui/icons/FastfoodOutlined';
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
+import ClearAllRoundedIcon from '@material-ui/icons/ClearAllRounded';
 
 const items = [
   {
@@ -59,7 +60,7 @@ const items = [
       },
       {
         href: '/app/papers',
-        icon: TimetableIcon,
+        icon: ClearAllRoundedIcon,
         title: 'Resources',
       },
     ],
@@ -145,7 +146,11 @@ const NavBar = ({ user, cookies, onMobileClose, openMobile }) => {
           }}
           to="/app/account"
         />
-        <Typography color="textPrimary" variant="h5">
+        <Typography
+          style={{ paddingTop: '10px' }}
+          color="textPrimary"
+          variant="h5"
+        >
           {user.name}
         </Typography>
         <Typography color="textSecondary" variant="body2">

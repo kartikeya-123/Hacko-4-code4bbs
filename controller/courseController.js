@@ -28,6 +28,7 @@ exports.addPapers = catchAsync(async (req, res, next) => {
   const newPaper = {
     name: req.body.name,
     link: req.body.link,
+    year: req.body.year,
   };
   const course = await Course.findById(req.params.id);
 
