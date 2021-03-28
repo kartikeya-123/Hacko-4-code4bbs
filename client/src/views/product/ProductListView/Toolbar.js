@@ -24,7 +24,7 @@ const Toolbar = (props) => (
         Add product
       </Button>
     </Box>
-    <Box sx={{ mt: 3 }}>
+    {/* <Box sx={{ mt: 3 }}>
       <Card>
         <CardContent>
           <Box>
@@ -45,7 +45,7 @@ const Toolbar = (props) => (
           </Box>
         </CardContent>
       </Card>
-    </Box>
+    </Box> */}
   </Box>
 );
 
