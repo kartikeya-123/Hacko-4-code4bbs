@@ -19,6 +19,8 @@ import Calendar from './views/Calendar';
 import MessMenu from './views/messmenu';
 import EditMenu from './views/messmenu/EditMenuView';
 import TimeTableView from './views/timeTable';
+import CourseView from './views/courses';
+
 const setUserAsProps = (user, cookies) => {
   return [
     {
@@ -27,6 +29,7 @@ const setUserAsProps = (user, cookies) => {
       children: [
         { path: 'account', element: <AccountView user={user} /> },
         { path: 'update', element: <UpdateView user={user} /> },
+        { path: 'courses', element: <CourseView user={user} /> },
         { path: 'customers', element: <CustomerListView user={user} /> },
         { path: 'dashboard', element: <DashboardView user={user} /> },
         { path: 'mess-menu', element: <MessMenu user={user} /> },
