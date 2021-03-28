@@ -119,8 +119,10 @@ class SportsList extends Component {
           }}
         >
           <Container maxWidth={false}>
-            <Toolbar />
-            <Typography fontSize={30} style={{ fontWeight: 500 }}>
+            <Typography
+              fontSize={30}
+              style={{ fontWeight: 500, textAlign: 'center' }}
+            >
               Hostel Equipment
             </Typography>
             {this.state.issued !== '' ? (

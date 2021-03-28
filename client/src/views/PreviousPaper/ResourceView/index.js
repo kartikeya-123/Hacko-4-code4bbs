@@ -73,6 +73,7 @@ class SportsList extends Component {
             >
               E-Resources
             </Typography>
+            <Toolbar />
             {!this.state.isLoading ? (
               <>
                 <Box sx={{ pt: 3 }}>
