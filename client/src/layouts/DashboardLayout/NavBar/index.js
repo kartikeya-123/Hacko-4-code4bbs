@@ -45,7 +45,7 @@ const items = [
         title: 'Profile',
       },
       {
-        href: '/app/customers',
+        href: '/app/users',
         icon: UsersIcon,
         title: 'Students',
       },
