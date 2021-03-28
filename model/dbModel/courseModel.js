@@ -12,6 +12,13 @@ const courseSchema = new mongoose.Schema(
       required: [true, "A Course must have a name"],
       unique: "true",
     },
+    papers: [
+      {
+        name: String,
+        year: String,
+        link: String,
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },

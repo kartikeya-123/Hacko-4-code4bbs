@@ -18,7 +18,7 @@ import {
   Users as UsersIcon,
   Tool as ToolBarIcon,
   Calendar as CalendarIcon,
-  Clock as TimetableIcon
+  Clock as TimetableIcon,
 } from 'react-feather';
 
 import NavItem from './NavItem';
@@ -26,49 +26,70 @@ import { GoogleLogout } from 'react-google-login';
 import axios from 'axios';
 
 import FastfoodOutlinedIcon from '@material-ui/icons/FastfoodOutlined';
+import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 
 const items = [
   {
-    href: '/app/dashboard',
-    icon: BarChartIcon,
-    title: 'Dashboard',
+    type: 'Academics',
+    children: [
+      {
+        href: '/app/dashboard',
+        icon: BarChartIcon,
+        title: 'Dashboard',
+      },
+      {
+        href: '/app/account',
+        icon: UserIcon,
+        title: 'Profile',
+      },
+      {
+        href: '/app/customers',
+        icon: UsersIcon,
+        title: 'Students',
+      },
+      {
+        href: '/app/courses',
+        icon: DescriptionOutlinedIcon,
+        title: 'Courses',
+      },
+      {
+        href: '/app/time-table',
+        icon: TimetableIcon,
+        title: 'Time Table',
+      },
+      {
+        href: '/app/papers',
+        icon: TimetableIcon,
+        title: 'Resources',
+      },
+    ],
   },
   {
-    href: '/app/customers',
-    icon: UsersIcon,
-    title: 'Students',
-  },
-  {
-    href: '/app/sports',
-    icon: ShoppingBagIcon,
-    title: 'Sports',
-  },
+    type: 'Hostel',
+    children: [
+      {
+        href: '/app/sports',
+        icon: ShoppingBagIcon,
+        title: 'Sports',
+      },
 
-  {
-    href: '/app/complaints',
-    icon: ToolBarIcon,
-    title: 'Complaints',
+      {
+        href: '/app/complaints',
+        icon: ToolBarIcon,
+        title: 'Complaints',
+      },
+      {
+        href: '/app/calendar',
+        icon: CalendarIcon,
+        title: 'Calendar',
+      },
+      {
+        href: '/app/mess-menu',
+        icon: FastfoodOutlinedIcon,
+        title: 'MessMenu',
+      },
+    ],
   },
-  {
-    href: '/app/calendar',
-    icon: CalendarIcon,
-    title: 'Calendar',
-  },
-  {
-    href: '/app/mess-menu',
-    icon: FastfoodOutlinedIcon,
-    title: 'MessMenu',
-  },
-  {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Profile',
-  },
-  {
-    href: '/app/time-table',
-    icon: TimetableIcon,
-    title: 'Time Table'
-  }
 ];
 const logOut = (cookies) => {
   axios
@@ -146,12 +167,21 @@ const NavBar = ({ user, cookies, onMobileClose, openMobile }) => {
       <Box sx={{ p: 2 }}>
         <List>
           {items.map((item) => (
-            <NavItem
-              href={item.href}
-              key={item.title}
-              title={item.title}
-              icon={item.icon}
-            />
+            <div>
+              <Typography style={{ fontWeight: 500, padding: '5px 0px' }}>
+                {item.type}
+              </Typography>
+              {item.children.map((el) => {
+                return (
+                  <NavItem
+                    href={el.href}
+                    key={el.title}
+                    title={el.title}
+                    icon={el.icon}
+                  />
+                );
+              })}
+            </div>
           ))}
         </List>
       </Box>

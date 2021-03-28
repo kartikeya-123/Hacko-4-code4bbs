@@ -3,7 +3,7 @@ import DashboardLayout from './layouts/DashboardLayout';
 import MainLayout from './layouts/MainLayout';
 import AccountView from './views/account1/AccountView';
 import UsersView from './views/account1/UsersView';
-
+import ResourceView from './views/PreviousPaper/ResourceView';
 import UpdateView from './views/account1/UpdateView';
 import CustomerListView from './views/customer/CustomerListView';
 import DashboardView from './views/reports/DashboardView';
@@ -19,6 +19,8 @@ import Calendar from './views/Calendar';
 import MessMenu from './views/messmenu';
 import EditMenu from './views/messmenu/EditMenuView';
 import TimeTableView from './views/timeTable';
+import CourseView from './views/courses';
+
 const setUserAsProps = (user, cookies) => {
   return [
     {
@@ -27,11 +29,13 @@ const setUserAsProps = (user, cookies) => {
       children: [
         { path: 'account', element: <AccountView user={user} /> },
         { path: 'update', element: <UpdateView user={user} /> },
+        { path: 'courses', element: <CourseView user={user} /> },
         { path: 'customers', element: <CustomerListView user={user} /> },
         { path: 'dashboard', element: <DashboardView user={user} /> },
         { path: 'mess-menu', element: <MessMenu user={user} /> },
         { path: 'mess-menu/:id', element: <EditMenu user={user} /> },
         { path: 'sports', element: <ProductListView user={user} /> },
+        { path: 'papers', element: <ResourceView user={user} /> },
         { path: 'sports/:id', element: <EquipmentView user={user} /> },
         { path: 'user/:id', element: <UsersView user={user} /> },
         { path: 'settings', element: <SettingsView /> },
