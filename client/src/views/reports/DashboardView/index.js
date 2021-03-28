@@ -10,12 +10,18 @@ const Dashboard = ({ user }) => (
     </Helmet>
     <div style={{ padding: '40px' }}>
       <Card style={{ padding: '20px' }}>
-        <Typography fontSize={40}>Hi, {user.name} 👋</Typography>
-        <Typography fontSize={20}>
+        <Typography variant="h2" style={{ paddingBottom: '20px' }}>
+          Hi, {user.name} 👋
+        </Typography>
+        <Typography variant="h4">
           Welcome to the College Management Portal
         </Typography>
       </Card>
-      <img src={image} style={{ width: '100%' }} />
+      <img
+        src={image}
+        alt="welcome"
+        style={{ width: '100%', height: '100%' }}
+      />
     </div>
   </>
 );
