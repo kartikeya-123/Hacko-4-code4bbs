@@ -39,14 +39,6 @@ app.use(middleware.requestLogger);
 
 app.use(express.static(path.join(__dirname, "client/build")));
 
-app.get("/:clientEndpoint", (req, res, next) => {
-  if (clientEndpoints.includes(req.params.clientEndpoint)) {
-    res.sendFile(path.join(__dirname, "/client/build/index.html"));
-  } else {
-    next();
-  }
-});
-
 //Authentication Endpoint
 app.use("/api/v1/auth", authRouter);
 
@@ -67,9 +59,13 @@ app.use("/api/v1/mess", messRouter);
 //Search Endpoints
 app.use("/api/v1/search", searchRouter);
 
-app.all("*", (req, res, next) => {
-  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+app.get("*", (req, res, next) => {
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
 });
+
+// app.all("*", (req, res, next) => {
+//   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+// });
 
 app.use(globalErrorHandler);
 
