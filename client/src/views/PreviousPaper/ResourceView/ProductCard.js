@@ -43,7 +43,7 @@ const ProductCard = ({ product, ...rest }) => {
           {product.name}
         </Typography>
         <Typography align="left" color="textPrimary" variant="body1">
-          Course id : {product.id}
+          Course ID: {product.id}
         </Typography>
       </CardContent>
       <Box sx={{ flexGrow: 1 }} />
