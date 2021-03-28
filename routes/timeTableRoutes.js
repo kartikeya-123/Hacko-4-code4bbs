@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const timeTableController = require("./../controller/timeTableController");
+const timeTableController = require("./../controller/timetableController");
 const authLogic = require("./../model/businessLogic/authLogic");
 
 router.get(
