@@ -15,6 +15,7 @@ import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Logo from '../../components/Logo';
 import axios from 'axios';
+import { GoogleLogout } from 'react-google-login';
 
 const TopBar = ({ onMobileNavOpen, cookies, ...rest }) => {
   const [notifications] = useState([]);
@@ -53,9 +54,20 @@ const TopBar = ({ onMobileNavOpen, cookies, ...rest }) => {
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <IconButton color="inherit" onClick={() => logout({ cookies })}>
+        {/* <IconButton color="inherit" onClick={() => logout({ cookies })}>
           <InputIcon />
-        </IconButton>
+        </IconButton> */}
+
+        {/* <Box display="flex" justifyContent="center" mt={1}>
+            <GoogleLogout
+              clientId="1092979243632-ufl3842hjal4adoaio73ta2noj2avnbo.apps.googleusercontent.com"
+              buttonText="LOG OUT"
+              onLogoutSuccess={() => logout({ cookies })}
+              theme="dark"
+              icon={false}
+            ></GoogleLogout>
+          </Box>
+        </Box> */}
         <Hidden lgUp>
           <IconButton color="inherit" onClick={onMobileNavOpen}>
             <MenuIcon />
