@@ -35,7 +35,7 @@ exports.addPapers = catchAsync(async (req, res, next) => {
   course.papers.push(newPaper);
   await course.save();
 
-  res.status(200).json({
+  res.status(201).json({
     status: "success",
     course,
   });

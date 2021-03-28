@@ -61,7 +61,14 @@ const Toolbar = (props) => {
         }}
       >
         <div>
-          <Button color="primary" variant="contained" onClick={handleOpen}>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = '/app/papers/add';
+            }}
+          >
             Add Resource
           </Button>
         </div>
