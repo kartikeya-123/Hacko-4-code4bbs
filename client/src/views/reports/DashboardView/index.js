@@ -12,7 +12,7 @@ const Dashboard = ({ user }) => (
       <Card style={{ padding: '20px' }}>
         <Typography fontSize={40}>Hi, {user.name} 👋</Typography>
         <Typography fontSize={20}>
-          Welcome to the Education Management Portal
+          Welcome to the College Management Portal
         </Typography>
       </Card>
       <img src={image} style={{ width: '100%' }} />

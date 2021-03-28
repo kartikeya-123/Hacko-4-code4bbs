@@ -34,7 +34,7 @@ const TopBar = ({ onMobileNavOpen, cookies, ...rest }) => {
       });
   };
   return (
-    <AppBar elevation={0} {...rest} style={{ backgroundColor: '#123C69' }}>
+    <AppBar elevation={0} {...rest}>
       <Toolbar>
         <RouterLink to="/">
           <Typography

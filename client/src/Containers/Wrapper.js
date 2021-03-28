@@ -98,12 +98,12 @@ class Wrapper extends Component {
             role: response.data.user.role,
             image: response.data.user.image,
             phoneNumber: response.data.user.phoneNumber,
-            rollNumber:response.data.user.rollNumber,
+            rollNumber: response.data.user.rollNumber,
             room: response.data.user.room,
             admissionYear: response.data.user.admissionYear,
-            hostel: response.data.user.hostel
+            hostel: response.data.user.hostel,
           };
-          console.log(this.state.user)
+          console.log(this.state.user);
           const cookies = this.props.cookies;
           cookies.set('userData', userData, {
             path: '/',
@@ -158,7 +158,7 @@ class Wrapper extends Component {
                     float: 'right',
                   }}
                 >
-                  Education Management System
+                  College Management Portal
                   <br />
                   {/* <i style={{ fontSize: 20, textAlign: 'right' }}>
                     find right people at the right time
