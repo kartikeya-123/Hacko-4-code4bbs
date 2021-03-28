@@ -43,11 +43,15 @@ class newResource extends Component {
     e.preventDefault();
 
     axios
-      .post(`/api/v1/course/paper/:${this.state.values.course}`, {
+      .post(`/api/v1/course/paper/${this.state.values.course}`, {
         ...this.state.values,
       })
       .then((response) => {
         console.log(response);
+        if (response.status === 201) {
+          window.alert('Resource Added Successfully! Thank you for helping.');
+          window.location.href = '/app/papers';
+        }
       });
   };
 
@@ -136,34 +140,6 @@ class newResource extends Component {
                   variant="outlined"
                 />
               </Grid>
-
-              {/* <Grid item md={6} xs={12}>
-                <TextField
-                  fullWidth
-                  required
-                  label="Phone Number"
-                  name="phone"
-                  onChange={(e) => this.handleChange(e)}
-                  type="number"
-                  value={this.state.values.phone}
-                  variant="outlined"
-                />
-              </Grid>
-
-              <Grid item md={12} xs={12}>
-                <TextField
-                  fullWidth
-                  multiline
-                  rows="4"
-                  helperText="Describe your complaint"
-                  label="Description"
-                  name="description"
-                  onChange={(e) => this.handleChange(e)}
-                  required
-                  value={this.state.values.firstName}
-                  variant="outlined"
-                />
-              </Grid> */}
             </Grid>
           </CardContent>
           <Divider />
@@ -189,7 +165,7 @@ class newResource extends Component {
                 this.addResource(e);
               }}
             >
-              Register Complaint
+              Add Resource
             </Button>
           </Box>
         </Card>
