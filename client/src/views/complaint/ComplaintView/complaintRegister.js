@@ -57,7 +57,23 @@ class complaintRegister extends Component {
   render() {
     return (
       <Card {...this.props}>
-        <CardHeader title="Pending Complaints" />
+        <CardHeader
+          title="Pending Complaints"
+          action={
+            <Button
+              color="primary"
+              endIcon={<ArrowRightIcon />}
+              size="small"
+              variant="text"
+              onClick={(e) => {
+                window.location.href = '/app/complaints/add';
+              }}
+            >
+              Lodge Complaint
+            </Button>
+          }
+        />
+
         <Divider />
         <PerfectScrollbar>
           <Box sx={{ minWidth: 800 }}>
@@ -121,25 +137,6 @@ class complaintRegister extends Component {
             </Table>
           </Box>
         </PerfectScrollbar>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2,
-          }}
-        >
-          <Button
-            color="primary"
-            endIcon={<ArrowRightIcon />}
-            size="small"
-            variant="text"
-            onClick={(e) => {
-              window.location.href = '/app/complaints/add';
-            }}
-          >
-            Lodge Complaint
-          </Button>
-        </Box>
       </Card>
     );
   }
