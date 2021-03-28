@@ -28,6 +28,7 @@ import axios from 'axios';
 import FastfoodOutlinedIcon from '@material-ui/icons/FastfoodOutlined';
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import ClearAllRoundedIcon from '@material-ui/icons/ClearAllRounded';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 
 const items = [
   {
@@ -35,8 +36,8 @@ const items = [
     children: [
       {
         href: '/app/dashboard',
-        icon: BarChartIcon,
-        title: 'Dashboard',
+        icon: HomeOutlinedIcon,
+        title: 'Home',
       },
       {
         href: '/app/account',
