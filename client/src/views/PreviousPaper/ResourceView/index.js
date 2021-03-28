@@ -64,8 +64,7 @@ class SportsList extends Component {
           }}
         >
           <Container maxWidth={false}>
-            <Toolbar />
-
+            <Typography>E-Resources</Typography>
             {!this.state.isLoading ? (
               <>
                 <Box sx={{ pt: 3 }}>
