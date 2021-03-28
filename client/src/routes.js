@@ -31,7 +31,7 @@ const setUserAsProps = (user, cookies) => {
         { path: 'account', element: <AccountView user={user} /> },
         { path: 'update', element: <UpdateView user={user} /> },
         { path: 'courses', element: <CourseView user={user} /> },
-        { path: 'customers', element: <CustomerListView user={user} /> },
+        { path: 'users', element: <CustomerListView user={user} /> },
         { path: 'dashboard', element: <DashboardView user={user} /> },
         { path: 'mess-menu', element: <MessMenu user={user} /> },
         { path: 'mess-menu/:id', element: <EditMenu user={user} /> },
