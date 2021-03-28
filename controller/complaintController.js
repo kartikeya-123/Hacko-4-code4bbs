@@ -153,3 +153,30 @@ exports.deleteComplaint = catchAsync(async (req, res, next) => {
     message: "Complaint has been deleted successfully",
   });
 });
+
+exports.upvoteAComplaint = catchAsync(async (req, res, next) => {
+  const complaint = await Complaint.findById(req.params.id);
+
+  if (!complaint) {
+    return next(new AppError("No post with this id", 404));
+  }
+  const user_id = req.user.id;
+  if (String(user_id) === String(complaint.student._id))
+    return next(new AppError("You cannot upvote your complaint", 400));
+
+  //Check if this user has already upvoted  if (yes) remove the upvote  if (no) down vote
+  const checkUserUpvote = complaint.upvotedBy.indexOf(user_id);
+  if (checkUserUpvote === -1) {
+    complaint.upvotedBy.push(user_id);
+    complaint.upvotes++;
+  } else {
+    complaint.upvotedBy.splice(checkUserUpvote, 1);
+    complaint.upvotes--;
+  }
+
+  await complaint.save();
+  res.status(200).json({
+    status: "success",
+    data: complaint,
+  });
+});

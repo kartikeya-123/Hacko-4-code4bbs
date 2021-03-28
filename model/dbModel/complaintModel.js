@@ -44,6 +44,13 @@ const complaintSchema = new mongoose.Schema({
     type: String,
     default: "available",
   },
+
+  upvotes: {
+    type: Number,
+    default: 0,
+  },
+
+  upvotedBy: [{ type: mongoose.Schema.ObjectId, ref: "User" }],
 });
 
 const Complaint = mongoose.model("Complaint", complaintSchema);

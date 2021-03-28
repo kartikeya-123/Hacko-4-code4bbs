@@ -29,7 +29,10 @@ class ComplaintView extends Component {
           <Container maxWidth="lg">
             <Grid container spacing={3}>
               <Grid item lg={12} md={12} xs={12}>
-                <ComplaintRegister admin={isAdmin.toString()} />
+                <ComplaintRegister
+                  admin={isAdmin.toString()}
+                  user={this.props.user}
+                />
               </Grid>
             </Grid>
           </Container>

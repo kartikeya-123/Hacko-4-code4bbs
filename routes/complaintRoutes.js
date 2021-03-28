@@ -37,4 +37,10 @@ router.delete(
   complaintController.deleteComplaint
 );
 
+router.patch(
+  "/upvote/:id",
+  authLogic.loggedInUser,
+  complaintController.upvoteAComplaint
+);
+
 module.exports = router;

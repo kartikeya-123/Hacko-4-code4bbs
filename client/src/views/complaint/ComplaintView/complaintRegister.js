@@ -32,7 +32,40 @@ class complaintRegister extends Component {
   };
 
   componentDidMount = () => {
+    console.log(this.props);
     this.getComplaints();
+  };
+
+  upvoteComplaint = (e, id) => {
+    e.preventDefault();
+    axios
+      .patch(`/api/v1/complaint/upvote/${id}`, null)
+      .then((res) => {
+        if (res.status === 200) {
+          const responseData = res.data.data;
+          const updatedData = {
+            upvotes: responseData.upvotes,
+            upvotedBy: responseData.upvotedBy,
+          };
+          const updatedComplaints = [...this.state.complaints];
+          const myPostIndex = updatedComplaints.indexOf(
+            updatedComplaints.find((x) => x._id === responseData._id)
+          );
+          const updatedComplaint = {
+            ...updatedComplaints[myPostIndex],
+            upvotes: updatedData.upvotes,
+            upvotedBy: updatedData.upvotedBy,
+          };
+          updatedComplaints[myPostIndex] = updatedComplaint;
+          this.setState({ complaints: updatedComplaints });
+        } else if (res.status === 400) {
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (error.response.status === 400)
+          window.alert('You are not allowed to upvote your own complaint!');
+      });
   };
 
   resolveComplaint = (e, id) => {
@@ -93,6 +126,7 @@ class complaintRegister extends Component {
                   <TableCell>Student Name</TableCell>
                   <TableCell>Room Number</TableCell>
                   <TableCell>Phone Number</TableCell>
+                  <TableCell>+1 Feature</TableCell>
                   {this.props.admin === 'true' ? (
                     <>
                       <TableCell>Available Time</TableCell>
@@ -113,6 +147,29 @@ class complaintRegister extends Component {
                     <TableCell>{complaint.student.name}</TableCell>
                     <TableCell>{complaint.student.room}</TableCell>
                     <TableCell>{complaint.phone}</TableCell>
+                    <TableCell>
+                      {complaint.upvotedBy.includes(this.props.user._id) ? (
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={(e) => {
+                            this.upvoteComplaint(e, complaint._id);
+                          }}
+                        >
+                          {complaint.upvotes}
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          onClick={(e) => {
+                            this.upvoteComplaint(e, complaint._id);
+                          }}
+                        >
+                          {complaint.upvotes}
+                        </Button>
+                      )}
+                    </TableCell>
 
                     {this.props.admin === 'true' ? (
                       <TableCell>{complaint.availableTime}</TableCell>
