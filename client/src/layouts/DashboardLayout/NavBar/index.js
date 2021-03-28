@@ -146,7 +146,11 @@ const NavBar = ({ user, cookies, onMobileClose, openMobile }) => {
           }}
           to="/app/account"
         />
-        <Typography color="textPrimary" variant="h5">
+        <Typography
+          style={{ paddingTop: '10px' }}
+          color="textPrimary"
+          variant="h5"
+        >
           {user.name}
         </Typography>
         <Typography color="textSecondary" variant="body2">
