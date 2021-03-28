@@ -1,6 +1,8 @@
 import { Helmet } from 'react-helmet';
 import { Card, Box, Container, Grid, Typography } from '@material-ui/core';
 
+import image from '../../../images/home.png';
+
 const Dashboard = ({ user }) => (
   <>
     <Helmet>
@@ -13,6 +15,7 @@ const Dashboard = ({ user }) => (
           Welcome to the Education Management Portal
         </Typography>
       </Card>
+      <img src={image} style={{ width: '100%' }} />
     </div>
   </>
 );
