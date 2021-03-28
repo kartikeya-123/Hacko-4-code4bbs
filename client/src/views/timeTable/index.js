@@ -17,6 +17,7 @@ import {
     TableRow,
     TableSortLabel,
     Tooltip,
+    Typography,
   } from '@material-ui/core';
 
 class Timetable extends Component {
@@ -53,13 +54,8 @@ class Timetable extends Component {
     
     let courses = Object.keys(timeTable);
     let studentCourseIDX = courses.indexOf(student);
-    let userTimeTable = {
-      monday : ['DEC','DEC','ESTM','Breadth','Lunch Break','Lateral','Lateral'],
-      tuesday : ['DAA','DAA','PS','PS','Lunch Break','CPS','Lateral'],
-      wednesday : ['DEC','DEC','ESTM','Breadth','Lunch Break','Lateral','Lateral'],
-      thursday : ['DAA','DAA','PS','PS','Lunch Break','CPS','Lateral'],
-      friday : ['DEC','DEC','ESTM','Breadth','Lunch Break','Lateral','Lateral']
-    }
+    let userTimeTable = Object.values(timeTable)[studentCourseIDX];
+    
     let studentTimeTable = Object.values(userTimeTable);
     const Days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
     
@@ -69,7 +65,11 @@ class Timetable extends Component {
           <title>Timetable</title>
         </Helmet>
         <br/>
-        <Box align = "center"><h1>Time Table</h1></Box>
+        <Box align = "center">
+          <Typography><h1>Time Table</h1></Typography>
+          {/* <br/> */}
+          <p>Branch : {studentBranch} || Year : {studentYear}</p>
+          </Box>
         <br/><br/>
         <Box sx={{ minWidth: 800 }}>
             <Table>
