@@ -11,7 +11,6 @@ import {
   List,
   Typography,
 } from '@material-ui/core';
-import NoteIcon from '@material-ui/icons/Note';
 import {
   BarChart as BarChartIcon,
   ShoppingBag as ShoppingBagIcon,
@@ -58,6 +57,11 @@ const items = [
         icon: TimetableIcon,
         title: 'Time Table',
       },
+      {
+        href: '/app/papers',
+        icon: TimetableIcon,
+        title: 'Resources',
+      },
     ],
   },
   {
@@ -85,26 +89,6 @@ const items = [
         title: 'MessMenu',
       },
     ],
-  },
-  {
-    href: '/app/mess-menu',
-    icon: FastfoodOutlinedIcon,
-    title: 'MessMenu',
-  },
-  {
-    href: '/app/account',
-    icon: UserIcon,
-    title: 'Profile',
-  },
-  {
-    href: '/app/time-table',
-    icon: TimetableIcon,
-    title: 'Time Table',
-  },
-  {
-    href: '/app/papers',
-    icon: NoteIcon,
-    title: 'Previous Papers',
   },
 ];
 const logOut = (cookies) => {
