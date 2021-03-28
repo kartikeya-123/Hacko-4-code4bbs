@@ -1,3 +1,4 @@
+const AppError = require("../utils/appError");
 const Course = require("./../model/dbModel/courseModel");
 const catchAsync = require("./../utils/catchAsync");
 
@@ -16,5 +17,25 @@ exports.getAllCourses = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: "sucesss",
     courses,
+  });
+});
+
+exports.addPapers = catchAsync(async (req, res, next) => {
+  if (!req.body.name || !req.body.link) {
+    return next(new AppError("Either name or link is missing", 403));
+  }
+
+  const newPaper = {
+    name: req.body.name,
+    link: req.body.link,
+  };
+  const course = await Course.findById(req.params.id);
+
+  course.papers.push(newPaper);
+  await course.save();
+
+  res.status(200).json({
+    status: "success",
+    course,
   });
 });

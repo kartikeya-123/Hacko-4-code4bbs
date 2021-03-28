@@ -18,7 +18,7 @@ import {
   Users as UsersIcon,
   Tool as ToolBarIcon,
   Calendar as CalendarIcon,
-  Clock as TimetableIcon
+  Clock as TimetableIcon,
 } from 'react-feather';
 
 import NavItem from './NavItem';
@@ -26,6 +26,7 @@ import { GoogleLogout } from 'react-google-login';
 import axios from 'axios';
 
 import FastfoodOutlinedIcon from '@material-ui/icons/FastfoodOutlined';
+import NoteIcon from '@material-ui/icons/Note';
 
 const items = [
   {
@@ -67,8 +68,13 @@ const items = [
   {
     href: '/app/time-table',
     icon: TimetableIcon,
-    title: 'Time Table'
-  }
+    title: 'Time Table',
+  },
+  {
+    href: '/app/papers',
+    icon: NoteIcon,
+    title: 'Previous Papers',
+  },
 ];
 const logOut = (cookies) => {
   axios
