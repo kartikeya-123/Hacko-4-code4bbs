@@ -20,6 +20,7 @@ import MessMenu from './views/messmenu';
 import EditMenu from './views/messmenu/EditMenuView';
 import TimeTableView from './views/timeTable';
 import CourseView from './views/courses';
+import NewResourceView from './views/PreviousPaper/NewResourceView';
 
 const setUserAsProps = (user, cookies) => {
   return [
@@ -36,6 +37,7 @@ const setUserAsProps = (user, cookies) => {
         { path: 'mess-menu/:id', element: <EditMenu user={user} /> },
         { path: 'sports', element: <ProductListView user={user} /> },
         { path: 'papers', element: <ResourceView user={user} /> },
+        { path: 'papers/add', element: <NewResourceView user={user} /> },
         { path: 'sports/:id', element: <EquipmentView user={user} /> },
         { path: 'user/:id', element: <UsersView user={user} /> },
         { path: 'settings', element: <SettingsView /> },
