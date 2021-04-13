@@ -6,7 +6,7 @@ Ever felt it would be handier to have all the activities of the institute in one
 
 Well, this website portal has got your back! From lodging complaints about mess food, civil and hygiene in the hostel which will directly be addressed by the hostel office, to obtain materials for your courses, mess menu, dates of every fest and event happening in the institute, you can find everything pertaining to your campus life.
 
-This portal is built our team **Code4BBS**  during [Hackowasp 3.0](https://hackowasp.live/), the annual Hackathon organized by OWASP Thapar Student Chapter, TIET, Patiala.
+This portal is built by our team **Code4BBS**  during [Hackowasp 3.0](https://hackowasp.live/), the annual Hackathon organized by OWASP Thapar Student Chapter, TIET, Patiala.
 
 **Problem Statement**
 
